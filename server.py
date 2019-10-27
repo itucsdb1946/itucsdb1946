@@ -20,7 +20,9 @@ dsn = """user='vagrant' password='vagrant'
 
 
 def create_app():
+    print("DENEME5")
     connection = dbapi2.connect(dsn)
+    print("DENEME2")
     try:
         cursor = connection.cursor()
         statement = """CREATE TABLE PERSON (
@@ -37,6 +39,7 @@ def create_app():
         app = Flask(__name__)
         
     connection = dbapi2.connect(dsn)
+    print("DENEME3")
     try:
         cursor = connection.cursor()
         statement = """CREATE TABLE PERSON (
@@ -52,7 +55,8 @@ def create_app():
         connection.close()
         app = Flask(__name__)
         
-    connection = dbapi2.connect(dsn)    
+    connection = dbapi2.connect(dsn)
+    print("DENEME4")    
     try:
         cursor = connection.cursor()
         statement = """CREATE TABLE PERSON (
@@ -82,37 +86,3 @@ if __name__ == "__main__":
     print("deneme")
     app = create_app()
     app.run(host="0.0.0.0", port=8080, debug=True) # there was an error
-    
-"""
-app = Flask(__name__)
-
-__name__ is one such special variable. If the source file is 
-executed as the main program, the interpreter sets the __name__ 
-variable to have a value “__main__”. If this file is 
-being imported from another module, __name__ will be set to the module’s name.
-
-@app.route("/")
-def home_page():
-    today = datetime.today()
-    day_name = today.strftime("%A")
-    current_time = today.strftime("%X")
-    current_date = today.strftime("%x")
-    
-    https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior
-    different laters indicate different string returns
-    A is for weekdays full name For ex: Monday
-    
-    return render_template("home.html", day=day_name , time = current_time , date = current_date)
-
-@app.route("/movies")
-def movies_page():
-    return render_template("movies.html")
-
-
-A view function is defined to handle requests to the home page. 
-It simply returns a string containing the title. 
-The route decorator registers the / route with this function. 
-So whenever there is a request to the / route, 
-this function will be invoked and its result 
-will be sent back to the client as the response.
-"""
