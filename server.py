@@ -36,9 +36,8 @@ def create_app():
         connection.close()
         app = Flask(__name__)
         
-        
+    connection = dbapi2.connect(dsn)
     try:
-        connection = dbapi2.connect(dsn)
         cursor = connection.cursor()
         statement = """CREATE TABLE PERSON (
         ID SERIAL PRIMARY KEY,
@@ -53,9 +52,8 @@ def create_app():
         connection.close()
         app = Flask(__name__)
         
-        
+    connection = dbapi2.connect(dsn)    
     try:
-        connection = dbapi2.connect(dsn)
         cursor = connection.cursor()
         statement = """CREATE TABLE PERSON (
         ID SERIAL PRIMARY KEY,
@@ -68,7 +66,8 @@ def create_app():
         connection.rollback()
     finally:
         connection.close()
-        app = Flask(__name__)
+    
+    app = Flask(__name__)
 
 
 
@@ -81,7 +80,7 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True) # there was an error
     
 """
 app = Flask(__name__)
