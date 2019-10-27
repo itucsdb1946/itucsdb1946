@@ -1,0 +1,36 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>My movies - Home</title>
+    <link rel="stylesheet" href="/static/mymovies.css"/>
+  </head>
+  <body>
+    <h1>My movie collection</h1>
+    <p>Happy {{day}}s</p>
+    <p>The time is {{time}}</p>
+    <p>And the date is {{date}}</p>
+    
+    <ul>
+      <li><a href="/movies">List movies</a></li>
+    </ul>
+  </body>
+</html>
+
+-->
+
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <h1>My movie collection</h1>
+    <p>Happy {{day}}s</p>
+    <p>The time is {{time}}</p>
+    <p>And the date is {{date}}</p>
+    
+    <ul>
+      <li><a href="{{ url_for('movies_page')}}">List movie</a></li>
+    </ul>
+    
+{% endblock %}
+
