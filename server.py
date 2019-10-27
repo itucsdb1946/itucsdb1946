@@ -20,7 +20,21 @@ dsn = """user='vagrant' password='vagrant'
 
 
 def create_app():
-    print("DENEME5")
+    app = Flask(__name__)
+
+
+
+    app.add_url_rule("/", view_func=views.home_page)
+    app.add_url_rule("/movies", view_func=views.movies_page)
+    app.add_url_rule("/actors", view_func=views.actors_page)
+
+    return app
+
+
+if __name__ == "__main__":
+    print("deneme")
+    app = create_app()
+    app.run(host="0.0.0.0", port=8080, debug=True)
     connection = dbapi2.connect(dsn)
     print("DENEME2")
     try:
@@ -70,19 +84,4 @@ def create_app():
         connection.rollback()
     finally:
         connection.close()
-    
-    app = Flask(__name__)
-
-
-
-    app.add_url_rule("/", view_func=views.home_page)
-    app.add_url_rule("/movies", view_func=views.movies_page)
-    app.add_url_rule("/actors", view_func=views.actors_page)
-
-    return app
-
-
-if __name__ == "__main__":
-    print("deneme")
-    app = create_app()
-    app.run(host="0.0.0.0", port=8080, debug=True) # there was an error
+    connection = dbapi2.connect(dsn)# there was an error
