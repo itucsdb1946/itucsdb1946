@@ -15,7 +15,7 @@ import psycopg2 as dbapi2
 
 
 dsn = """user='vagrant' password='vagrant'
-         host='localhost' port=5432 dbname='itucsdb'"""
+         host='0.0.0.0' port=8080 dbname='itucsdb'"""
 
 
 
@@ -79,6 +79,7 @@ def create_app():
 
 
 if __name__ == "__main__":
+    print("deneme")
     app = create_app()
     app.run(host="0.0.0.0", port=8080, debug=True) # there was an error
     

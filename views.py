@@ -7,10 +7,19 @@ Created on Sun Oct 13 22:48:31 2019
 
 from datetime import datetime
 
-from flask import render_template
+from flask import render_template, request, redirect , url_for
+
+import psycopg2 as dbapi2
+
+
+dsn = """user='vagrant' password='vagrant'
+         host='0.0.0.0' port=8080 dbname='itucsdb'"""
+
+
+
 
 #from server import app
-
+print("deneme1")
 #@app.route("/")
 def home_page():
     today = datetime.today()
@@ -36,6 +45,20 @@ def movie_add_page():
         form_title = request.form["title"]
         form_year = request.form["year"]
         movie = Movie(form_title, year=int(form_year) if form_year else None)
-        db = current_app.config["db"]
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                for item in movie_data:
+                    statement = """
+                INSERT INTO MOVIE (TITLE, YR, SCORE, VOTES, DIRECTORID)
+                           VALUES (%(title)s, %(year)s, %(score)s, %(votes)s,
+                                   %(directorid)s)
+                RETURNING id
+            """
+            item['directorid'] = person_ids[item['director']]
+            cursor.execute(statement, item)
+            connection.commit()
+        
+        
+        #db = current_app.config["db"]
         movie_key = db.add_movie(movie)
         return redirect(url_for("movie_page", movie_key=movie_key))
