@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 13 22:48:31 2019
+
+@author: Cenk
+"""
+
+from datetime import datetime
+
+from flask import render_template
+
+#from server import app
+
+#@app.route("/")
+def home_page():
+    today = datetime.today()
+    day_name = today.strftime("%A")
+    current_time = today.strftime("%X")
+    current_date = today.strftime("%x")
+    return render_template("home.html", day=day_name , time = current_time , date = current_date)
+
+#@app.route("/movies")
+def movies_page():
+    return render_template("movies.html")
+
+def actors_page():
+    return "this is the actors page"
+
+
+def movie_add_page():
+    if request.method == "GET":
+        return render_template(
+            "movie_edit.html", min_year=1887, max_year=datetime.now().year
+        )
+    else:
+        form_title = request.form["title"]
+        form_year = request.form["year"]
+        movie = Movie(form_title, year=int(form_year) if form_year else None)
+        db = current_app.config["db"]
+        movie_key = db.add_movie(movie)
+        return redirect(url_for("movie_page", movie_key=movie_key))
