@@ -11,7 +11,7 @@ from flask import Flask #render_template  #applications are instances of this cl
 
 import views
 
-import psycopg2 as dbapi2
+import mysqlstatements
 
 
 dsn = """user='vagrant' password='vagrant'
@@ -35,53 +35,4 @@ if __name__ == "__main__":
     print("deneme")
     app = create_app()
     app.run(host="0.0.0.0", port=8080, debug=True)
-    connection = dbapi2.connect(dsn)
-    print("DENEME2")
-    try:
-        cursor = connection.cursor()
-        statement = """CREATE TABLE PERSON (
-        ID SERIAL PRIMARY KEY,
-        NAME VARCHAR(40) UNIQUE NOT NULL
-        )"""
-        cursor.execute(statement)
-        connection.commit()
-        cursor.close()
-    except dbapi2.DatabaseError:
-        connection.rollback()
-    finally:
-        connection.close()
-        app = Flask(__name__)
-        
-    connection = dbapi2.connect(dsn)
-    print("DENEME3")
-    try:
-        cursor = connection.cursor()
-        statement = """CREATE TABLE PERSON (
-        ID SERIAL PRIMARY KEY,
-        NAME VARCHAR(40) UNIQUE NOT NULL
-        )"""
-        cursor.execute(statement)
-        connection.commit()
-        cursor.close()
-    except dbapi2.DatabaseError:
-        connection.rollback()
-    finally:
-        connection.close()
-        app = Flask(__name__)
-        
-    connection = dbapi2.connect(dsn)
-    print("DENEME4")    
-    try:
-        cursor = connection.cursor()
-        statement = """CREATE TABLE PERSON (
-        ID SERIAL PRIMARY KEY,
-        NAME VARCHAR(40) UNIQUE NOT NULL
-        )"""
-        cursor.execute(statement)
-        connection.commit()
-        cursor.close()
-    except dbapi2.DatabaseError:
-        connection.rollback()
-    finally:
-        connection.close()
-    connection = dbapi2.connect(dsn)# there was an error
+    # there was an error
