@@ -1,0 +1,20 @@
+CUSTOMER 
+-customer id
+-name
+-surname
+-address
+-total number of orders defualt 0;
+
+ORDER
+-order id
+-customer id references customer id
+-company id
+-the date order is created
+-is order urgent or not 
+
+COMPANY
+-company id
+-name
+-avarage days to deliver
+-year founded
+-total number of orders they delivered
