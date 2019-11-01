@@ -11,7 +11,7 @@ from flask import Flask #render_template  #applications are instances of this cl
 
 import views
 
-import mysqlstatements
+
 
 
 dsn = """user='vagrant' password='vagrant'
@@ -35,4 +35,6 @@ if __name__ == "__main__":
     print("deneme")
     app = create_app()
     app.run(host="0.0.0.0", port=8080, debug=True)
+    print("deneme2")
+    
     # there was an error
