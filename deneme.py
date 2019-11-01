@@ -7,13 +7,12 @@ Created on Fri Nov  1 21:30:57 2019
 
 import psycopg2 as dbapi2
 
-dsn = """user='vagrant' password='vagrant'
-         host='0.0.0.0'dbname='itucsdb'"""
+dsn = """user='postgres' password='sabenzaro'
+         host='0.0.0.0' port=5432 dbname='itucsdb'"""
 
 connection = dbapi2.connect(dsn)
 cursor = connection.cursor()
-print("cookie")
-statement = """     CREATE TABLE CUSTOMER (
+statement = """CREATE TABLE CUSTOMER (
                         CUSTOMER_ID SERIAL PRIMARY KEY,
                         NAME VARCHAR(50),
                         SURNAME VARCHAR(50),
