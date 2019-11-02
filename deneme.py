@@ -14,9 +14,9 @@ connection = dbapi2.connect(dsn)
 cursor = connection.cursor()
 print ("oh yeah connected")
 
-statement = """DROP TABLE CUSTOMER;
+statement = """DROP TABLE MYORDER;
                 DROP TABLE COMPANY;
-                DROP TABLE MYORDER
+                DROP TABLE CUSTOMER
                     """
 cursor.execute(statement)
 connection.commit()

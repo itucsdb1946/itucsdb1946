@@ -15,7 +15,7 @@ import psycopg2 as dbapi2
 dsn = """user='vagrant' password='vagrant'
          host='0.0.0.0' port=8080 dbname='itucsdb'"""
 
-from mysqlstatements import create_tables 
+from mysqlstatements import create_tables,list_customer,create_customer
 
 
 #from server import app
@@ -36,7 +36,7 @@ def movies_page():
 def actors_page():
     return "this is the actors page"
 
-
+#@app.route('/createcustomer', methods=['GET', 'POST'])
 def create_customer_page():
     print("deneme5")
     if request.method == "GET":
@@ -51,7 +51,10 @@ def create_customer_page():
         #movie = Movie(form_title, year=int(form_year) if form_year else None)
         
         #create_customer(form_name,form_surname,form_surname)
-        print(form_name,form_surname,form_address)
+        create_customer(form_name,form_surname,form_address)
         #db = current_app.config["db"]
         #movie_key = db.add_movie(movie)
         return "Hello"
+    
+def list_customers_page():
+    return list_customer()

@@ -39,4 +39,28 @@ def create_tables():
     cursor.close()
     return
 
-#def create_customer(name,surname,address):
+def create_customer(name,surname,address):
+    connection = dbapi2.connect(dsn)
+    cursor = connection.cursor()
+    print ("oh yeah connected")
+    
+    statement = """INSERT INTO CUSTOMER (NAME,SURNAME , ADDRESS)
+                    VALUES ( %s , %s , %s )            
+                        """
+    cursor.execute(statement, (name,surname,address))
+    connection.commit()
+    cursor.close()
+    return
+
+def list_customer():
+    connection = dbapi2.connect(dsn)
+    cursor = connection.cursor()
+    print ("oh yeah connected")
+    
+    statement = """SELECT NAME,SURNAME,ADDRESS FROM CUSTOMER           
+                        """
+    cursor.execute(statement)
+    customers = ""
+    for name, surname, address in cursor:
+        customers += name + "-" +  surname + "-" + address + "<br />"
+    return customers
