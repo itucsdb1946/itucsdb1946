@@ -1,4 +1,4 @@
-CUSTOMER 
+sCUSTOMER 
 -customer id
 -name
 -surname
