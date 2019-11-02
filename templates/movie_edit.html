@@ -5,17 +5,23 @@
 
     <form action="" method="post" name="movie_edit">
       <div class="field">
-        <label for="title" class="label">Title</label>
+        <label for="name" class="label">Name</label>
         <div class="control">
-          <input type="text" name="title" class="input" required="required"/>
+          <input type="text" name="name" class="input" required="required"/>
         </div>
       </div>
-
+      
       <div class="field">
-        <label for="year" class="label">Year</label>
+        <label for="surname" class="label">Surname</label>
         <div class="control">
-          <input type="number" name="year" class="input"
-                 min="{{ min_year }}" max="{{ max_year }}"/>
+          <input type="text" name="surname" class="input" required="required"/>
+        </div>
+      </div>
+      
+      <div class="field">
+        <label for="address" class="label">Address</label>
+        <div class="control">
+          <input type="text" name="adress" class="input" required="required"/>
         </div>
       </div>
 

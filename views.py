@@ -15,47 +15,14 @@ import psycopg2 as dbapi2
 dsn = """user='vagrant' password='vagrant'
          host='0.0.0.0' port=8080 dbname='itucsdb'"""
 
-#from mysqlstatements import create_tables
+from mysqlstatements import create_tables 
 
 
 #from server import app
 print("deneme1")
 #@app.route("/")
 def home_page():
-    #create_tables()
-    dsn = """user='vagrant' password='vagrant'
-         host='0.0.0.0' dbname='itucsdb'"""
-
-    connection = dbapi2.connect(dsn)
-    cursor = connection.cursor()
-    statement = """CREATE TABLE CUSTOMER (
-                        CUSTOMER_ID SERIAL PRIMARY KEY,
-                        NAME VARCHAR(50),
-                        SURNAME VARCHAR(50),
-                        SCORE FLOAT,
-                        VOTES INTEGER DEFAULT 0,
-                        DIRECTORID INTEGER REFERENCES PERSON (ID)
-                    )
-                    CREATE TABLE COMPANY(
-                    COMPANY_ID SERIAL PRIMARY KEY,
-                    NAME VARCHAR(40),
-                    AVGDAY INTERVAL,
-                    YEAR_FOUNDED INTEGER,
-                    TOTAL_ORDERS INTEGER DEFAULT 0
-                    )
-                    
-                    CREATE TABLE ORDER(
-                    ORDER_ID SERIAL PRIMARY KEY,
-                    CUSTOMER_ID REFERENCES CUSTOMER (ID),
-                    COMPANY_ID REFERENCES COMPANY (ID),
-                    ORDER_DATE DATE,
-                    URGENT BOOLEAN
-                    )
-                    
-                    """
-    cursor.execute(statement)
-    cursor.commit()
-    cursor.close()   
+    create_tables()
     today = datetime.today()
     day_name = today.strftime("%A")
     current_time = today.strftime("%X")
@@ -70,29 +37,21 @@ def actors_page():
     return "this is the actors page"
 
 
-def movie_add_page():
+def create_customer_page():
+    print("deneme5")
     if request.method == "GET":
         return render_template(
-            "movie_edit.html", min_year=1887, max_year=datetime.now().year
+            "movie_edit.html" #, min_year=1887, max_year=datetime.now().year
         )
     else:
-        form_title = request.form["title"]
-        form_year = request.form["year"]
-        movie = Movie(form_title, year=int(form_year) if form_year else None)
-        with dbapi2.connect(dsn) as connection:
-            with connection.cursor() as cursor:
-                for item in movie_data:
-                    statement = """
-                INSERT INTO MOVIE (TITLE, YR, SCORE, VOTES, DIRECTORID)
-                           VALUES (%(title)s, %(year)s, %(score)s, %(votes)s,
-                                   %(directorid)s)
-                RETURNING id
-            """
-            item['directorid'] = person_ids[item['director']]
-            cursor.execute(statement, item)
-            connection.commit()
+        print("deneme4")
+        form_name = request.form["name"]
+        form_surname = request.form["surname"]
+        form_address = request.form["address"]
+        #movie = Movie(form_title, year=int(form_year) if form_year else None)
         
-        
+        #create_customer(form_name,form_surname,form_surname)
+        print(form_name,form_surname,form_address)
         #db = current_app.config["db"]
-        movie_key = db.add_movie(movie)
-        return redirect(url_for("movie_page", movie_key=movie_key))
+        #movie_key = db.add_movie(movie)
+        return "Hello"

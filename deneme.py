@@ -7,20 +7,23 @@ Created on Fri Nov  1 21:30:57 2019
 
 import psycopg2 as dbapi2
 
-dsn = """user='postgres' password='sabenzaro'
-         host='0.0.0.0' port=5432 dbname='itucsdb'"""
+dsn = """user='postgres' password='docker'
+         host='localhost' port=5432 dbname='postgres'"""
 
 connection = dbapi2.connect(dsn)
 cursor = connection.cursor()
-statement = """CREATE TABLE CUSTOMER (
-                        CUSTOMER_ID SERIAL PRIMARY KEY,
-                        NAME VARCHAR(50),
-                        SURNAME VARCHAR(50),
-                        SCORE FLOAT,
-                        VOTES INTEGER DEFAULT 0,
-                        DIRECTORID INTEGER REFERENCES PERSON (ID)
-                    )
-                    CREATE TABLE COMPANY(
+print ("oh yeah connected")
+
+statement = """DROP TABLE CUSTOMER;
+                DROP TABLE COMPANY;
+                DROP TABLE MYORDER
+                    """
+cursor.execute(statement)
+connection.commit()
+cursor.close()   
+
+"""
+CREATE TABLE COMPANY(
                     COMPANY_ID SERIAL PRIMARY KEY,
                     NAME VARCHAR(40),
                     AVGDAY INTERVAL,
@@ -30,13 +33,10 @@ statement = """CREATE TABLE CUSTOMER (
                     
                     CREATE TABLE ORDER(
                     ORDER_ID SERIAL PRIMARY KEY,
-                    CUSTOMER_ID REFERENCES CUSTOMER (ID),
-                    COMPANY_ID REFERENCES COMPANY (ID),
+                    CUSTOMER_ID REFERENCES CUSTOMER (CUSTOMER_ID),
+                    COMPANY_ID REFERENCES COMPANY (COMPANY_ID),
                     ORDER_DATE DATE,
                     URGENT BOOLEAN
                     )
-                    
-                    """
-cursor.execute(statement)
-cursor.commit()
-cursor.close()   
+
+"""
