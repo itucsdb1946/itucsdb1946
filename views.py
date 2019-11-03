@@ -15,7 +15,7 @@ import psycopg2 as dbapi2
 dsn = """user='vagrant' password='vagrant'
          host='0.0.0.0' port=8080 dbname='itucsdb'"""
 
-from mysqlstatements import create_tables,list_customer,create_customer
+from mysqlstatements import create_tables,get_customers,create_customer,delete_customer
 
 
 #from server import app
@@ -54,7 +54,38 @@ def create_customer_page():
         create_customer(form_name,form_surname,form_address)
         #db = current_app.config["db"]
         #movie_key = db.add_movie(movie)
-        return "Hello"
+        return redirect(url_for("list_customers_page"))
     
 def list_customers_page():
-    return list_customer()
+    if request.method == "GET":
+        customers = get_customers()
+        return render_template("customers.html", customers = sorted(customers))
+    else:
+        customers_todelete = request.form.getlist("person")
+        
+        for customer_id in customers_todelete:
+            delete_customer(customer_id)
+        
+    return redirect(url_for("list_customers_page"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -28,7 +28,8 @@ def create_app():
     app.add_url_rule("/movies", view_func=views.movies_page)
     app.add_url_rule("/actors", view_func=views.actors_page)
     app.add_url_rule("/createcustomer", view_func=views.create_customer_page , methods = ['GET','POST'])
-    app.add_url_rule("/listcustomer", view_func=views.list_customers_page)
+    app.add_url_rule("/listcustomer", view_func=views.list_customers_page , methods = ['GET','POST'])
+    
 
     return app
 

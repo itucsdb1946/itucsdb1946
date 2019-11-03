@@ -12,7 +12,6 @@ dsn = """user='postgres' password='docker'
 def create_tables():
     connection = dbapi2.connect(dsn)
     cursor = connection.cursor()
-    print ("oh yeah connected")
     
     statement = """CREATE TABLE CUSTOMER(
                             CUSTOMER_ID SERIAL PRIMARY KEY,
@@ -37,12 +36,12 @@ def create_tables():
     cursor.execute(statement)
     connection.commit()
     cursor.close()
+    connection.close()
     return
 
 def create_customer(name,surname,address):
     connection = dbapi2.connect(dsn)
     cursor = connection.cursor()
-    print ("oh yeah connected")
     
     statement = """INSERT INTO CUSTOMER (NAME,SURNAME , ADDRESS)
                     VALUES ( %s , %s , %s )            
@@ -50,17 +49,41 @@ def create_customer(name,surname,address):
     cursor.execute(statement, (name,surname,address))
     connection.commit()
     cursor.close()
+    connection.close()
     return
 
-def list_customer():
+def get_customers():
     connection = dbapi2.connect(dsn)
     cursor = connection.cursor()
-    print ("oh yeah connected")
     
-    statement = """SELECT NAME,SURNAME,ADDRESS FROM CUSTOMER           
+    statement = """SELECT CUSTOMER_ID,NAME,SURNAME,ADDRESS FROM CUSTOMER           
                         """
     cursor.execute(statement)
-    customers = ""
-    for name, surname, address in cursor:
-        customers += name + "-" +  surname + "-" + address + "<br />"
+    customers = cursor.fetchall()
+    cursor.close()
+    connection.close()
     return customers
+
+def delete_customer(id_todelete):
+    connection = dbapi2.connect(dsn)
+    cursor = connection.cursor()
+    
+    statement = """DELETE FROM CUSTOMER
+                    WHERE ( CUSTOMER_ID = (%(id_todelete)s) )           
+                        """
+                        
+    cursor.execute(statement, {'id_todelete' : id_todelete})
+    connection.commit()
+    cursor.close()
+    connection.close()
+    return
+
+
+
+
+
+
+
+
+
+
