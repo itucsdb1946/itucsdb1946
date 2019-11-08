@@ -15,8 +15,9 @@ cursor = connection.cursor()
 print ("oh yeah connected")
 
 statement = """DROP TABLE MYORDER;
-                DROP TABLE COMPANY;
-                DROP TABLE CUSTOMER
+DROP TABLE CUSTOMER;
+DROP TABLE COMPANY;
+               DROP TABLE SITEUSER;
                     """
 cursor.execute(statement)
 connection.commit()
@@ -39,4 +40,10 @@ CREATE TABLE COMPANY(
                     URGENT BOOLEAN
                     )
 
+
+DROP TABLE MYORDER;
+
+               DROP TABLE CUSTOMER;
+
+               DROP TABLE COMPANY;
 """

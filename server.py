@@ -21,23 +21,21 @@ dsn = """user='vagrant' password='vagrant'
 
 def create_app():
     app = Flask(__name__)
-
+    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
     app.add_url_rule("/", view_func=views.home_page)
-    app.add_url_rule("/movies", view_func=views.movies_page)
-    app.add_url_rule("/actors", view_func=views.actors_page)
-    app.add_url_rule("/createcustomer", view_func=views.create_customer_page , methods = ['GET','POST'])
+    app.add_url_rule("/createuser", view_func=views.create_user_page , methods = ['GET','POST'])
     app.add_url_rule("/listcustomer", view_func=views.list_customers_page , methods = ['GET','POST'])
+    app.add_url_rule("/createcustomer", view_func=views.create_customer_page , methods = ['GET','POST'])
+    
     
 
     return app
 
 
 if __name__ == "__main__":
-    print("deneme")
     app = create_app()
     app.run(host="0.0.0.0", port=8080, debug=True)
-    print("deneme2")
     
     # there was an error

@@ -7,20 +7,11 @@ Created on Sun Oct 13 22:48:31 2019
 
 from datetime import datetime
 
-from flask import render_template, request, redirect , url_for
+from flask import render_template, request, redirect , url_for, session
+from mysqlstatements import create_tables,get_customers,create_user,delete_user,create_customer
 
-import psycopg2 as dbapi2
+#from passlib.hash import pbkdf2_sha256 as hasher
 
-
-dsn = """user='vagrant' password='vagrant'
-         host='0.0.0.0' port=8080 dbname='itucsdb'"""
-
-from mysqlstatements import create_tables,get_customers,create_customer,delete_customer
-
-
-#from server import app
-print("deneme1")
-#@app.route("/")
 def home_page():
     create_tables()
     today = datetime.today()
@@ -29,32 +20,16 @@ def home_page():
     current_date = today.strftime("%x")
     return render_template("home.html", day=day_name , time = current_time , date = current_date)
 
-#@app.route("/movies")
-def movies_page():
-    return render_template("movies.html")
-
-def actors_page():
-    return "this is the actors page"
-
-#@app.route('/createcustomer', methods=['GET', 'POST'])
-def create_customer_page():
-    print("deneme5")
+def create_user_page():
     if request.method == "GET":
-        return render_template(
-            "movie_edit.html" #, min_year=1887, max_year=datetime.now().year
-        )
+        return render_template("movie_edit.html")
     else:
-        print("deneme4")
-        form_name = request.form["name"]
-        form_surname = request.form["surname"]
-        form_address = request.form["address"]
-        #movie = Movie(form_title, year=int(form_year) if form_year else None)
-        
-        #create_customer(form_name,form_surname,form_surname)
-        create_customer(form_name,form_surname,form_address)
-        #db = current_app.config["db"]
-        #movie_key = db.add_movie(movie)
-        return redirect(url_for("list_customers_page"))
+        form_username = request.form["username"]
+        form_account_type = request.form["account_type"]
+        form_password = request.form["password"]
+        create_user(form_username,form_password,form_account_type)
+        session['my_var'] = form_username
+        return redirect(url_for("create_customer_page"))
     
 def list_customers_page():
     if request.method == "GET":
@@ -64,10 +39,20 @@ def list_customers_page():
         customers_todelete = request.form.getlist("person")
         
         for customer_id in customers_todelete:
-            delete_customer(customer_id)
+            delete_user(customer_id)
         
     return redirect(url_for("list_customers_page"))
 
+def create_customer_page():
+    if request.method == "GET":
+        return render_template("add_customer.html" )
+    else:
+        username = session.get('my_var' , None)
+        form_name = request.form["name"]
+        form_surname = request.form["surname"]
+        form_address = request.form["address"]
+        create_customer(username,form_name,form_surname,form_address)
+        return redirect(url_for("list_customers_page"))
 
 
 

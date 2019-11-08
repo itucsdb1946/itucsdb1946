@@ -13,25 +13,33 @@ def create_tables():
     connection = dbapi2.connect(dsn)
     cursor = connection.cursor()
     
-    statement = """CREATE TABLE CUSTOMER(
-                            CUSTOMER_ID SERIAL PRIMARY KEY,
+    statement =  """CREATE TABLE SITEUSER(
+                        ID SERIAL PRIMARY KEY,
+                        USERNAME VARCHAR(40),
+                        PASSWORD VARCHAR(100),
+                        USERTYPE VARCHAR(10));
+    
+                    CREATE TABLE CUSTOMER(
+                            ID INTEGER REFERENCES SITEUSER(ID),
                             NAME VARCHAR(50),
                             SURNAME VARCHAR(50),
                             ADDRESS VARCHAR(300),
-                            TOTAL_ORDERS INTEGER DEFAULT 0);
+                            TOTAL_ORDERS INTEGER DEFAULT 0,
+                            DELETE CASCADE);
                    CREATE TABLE COMPANY(
-                        COMPANY_ID SERIAL PRIMARY KEY,
+                        ID INTEGER REFERENCES SITEUSER(ID),
                         NAME VARCHAR(40),
                         AVGDAY INTERVAL,
                         YEAR_FOUNDED INTEGER,
-                        TOTAL_ORDERS INTEGER DEFAULT 0);
+                        TOTAL_ORDERS INTEGER DEFAULT 0,
+                            DELETE CASCADE);
                    CREATE TABLE MYORDER(
                         ORDER_ID SERIAL PRIMARY KEY,
-                        CUSTOMER_ID INTEGER REFERENCES CUSTOMER(CUSTOMER_ID),
-                        COMPANY_ID INTEGER REFERENCES COMPANY(COMPANY_ID),
+                        CUSTOMER_ID INTEGER REFERENCES SITEUSER(ID),
+                        COMPANY_ID INTEGER REFERENCES SITEUSER(ID),
                         ORDER_DATE DATE,
-                        URGENT BOOLEAN
-                        )              
+                        URGENT BOOLEAN,
+                        DELETE CASCADE);
                         """
     cursor.execute(statement)
     connection.commit()
@@ -39,14 +47,14 @@ def create_tables():
     connection.close()
     return
 
-def create_customer(name,surname,address):
+def create_user(username,password,account_type):
     connection = dbapi2.connect(dsn)
     cursor = connection.cursor()
     
-    statement = """INSERT INTO CUSTOMER (NAME,SURNAME , ADDRESS)
+    statement = """INSERT INTO SITEUSER (USERNAME , PASSWORD , USERTYPE)
                     VALUES ( %s , %s , %s )            
                         """
-    cursor.execute(statement, (name,surname,address))
+    cursor.execute(statement, (username,password,account_type))
     connection.commit()
     cursor.close()
     connection.close()
@@ -56,7 +64,7 @@ def get_customers():
     connection = dbapi2.connect(dsn)
     cursor = connection.cursor()
     
-    statement = """SELECT CUSTOMER_ID,NAME,SURNAME,ADDRESS FROM CUSTOMER           
+    statement = """SELECT ID ,USERNAME , PASSWORD , USERTYPE FROM SITEUSER           
                         """
     cursor.execute(statement)
     customers = cursor.fetchall()
@@ -64,15 +72,34 @@ def get_customers():
     connection.close()
     return customers
 
-def delete_customer(id_todelete):
+def delete_user(id_todelete):
     connection = dbapi2.connect(dsn)
     cursor = connection.cursor()
     
-    statement = """DELETE FROM CUSTOMER
-                    WHERE ( CUSTOMER_ID = (%(id_todelete)s) )           
+    statement = """DELETE FROM SITEUSER
+                    WHERE ( ID = (%(id_todelete)s) )           
                         """
                         
     cursor.execute(statement, {'id_todelete' : id_todelete})
+    connection.commit()
+    cursor.close()
+    connection.close()
+    return
+
+def create_customer(username, name,surname,address):
+    connection = dbapi2.connect(dsn)
+    cursor = connection.cursor()
+    statement = """SELECT ID FROM SITEUSER
+                    WHERE (USERNAME = (%(username)s))           
+                        """
+    cursor.execute(statement, {'username' : username})
+    #return username
+    for item in cursor:
+        user_id = item ###Burası degismeliiiiiiiiiiiiiiiiiiiiiiiiii
+    statement = """INSERT INTO CUSTOMER (ID , NAME,SURNAME , ADDRESS)
+                    VALUES ( %(user_id)s , %(name)s , %(surname)s , %(address)s )            
+                        """
+    cursor.execute(statement, {'user_id' : user_id, 'name' : name , 'surname' : surname , 'address' : address })
     connection.commit()
     cursor.close()
     connection.close()
