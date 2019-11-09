@@ -20,26 +20,35 @@ def create_tables():
                         USERTYPE VARCHAR(10));
     
                     CREATE TABLE CUSTOMER(
-                            ID INTEGER REFERENCES SITEUSER(ID),
+                            ID INTEGER,
                             NAME VARCHAR(50),
                             SURNAME VARCHAR(50),
                             ADDRESS VARCHAR(300),
                             TOTAL_ORDERS INTEGER DEFAULT 0,
-                            DELETE CASCADE);
+                            CONSTRAINT CONSTRAINT1
+                            FOREIGN KEY (ID) REFERENCES SITEUSER(ID)
+                            ON DELETE CASCADE);
                    CREATE TABLE COMPANY(
-                        ID INTEGER REFERENCES SITEUSER(ID),
+                        ID INTEGER,
                         NAME VARCHAR(40),
                         AVGDAY INTERVAL,
                         YEAR_FOUNDED INTEGER,
                         TOTAL_ORDERS INTEGER DEFAULT 0,
-                            DELETE CASCADE);
+                        CONSTRAINT CONSTRAINT1
+                            FOREIGN KEY (ID) REFERENCES SITEUSER(ID)
+                            ON DELETE CASCADE);
                    CREATE TABLE MYORDER(
                         ORDER_ID SERIAL PRIMARY KEY,
-                        CUSTOMER_ID INTEGER REFERENCES SITEUSER(ID),
-                        COMPANY_ID INTEGER REFERENCES SITEUSER(ID),
+                        CUSTOMER_ID INTEGER,
+                        COMPANY_ID INTEGER,
                         ORDER_DATE DATE,
                         URGENT BOOLEAN,
-                        DELETE CASCADE);
+                        CONSTRAINT CONSTRAINT1
+                            FOREIGN KEY (CUSTOMER_ID) REFERENCES SITEUSER(ID)
+                            ON DELETE CASCADE,
+                        CONSTRAINT CONSTRAINT2
+                            FOREIGN KEY (COMPANY_ID) REFERENCES SITEUSER(ID)
+                            ON DELETE CASCADE);
                         """
     cursor.execute(statement)
     connection.commit()
@@ -105,8 +114,32 @@ def create_customer(username, name,surname,address):
     connection.close()
     return
 
+def get_user(username):
+    connection = dbapi2.connect(dsn)
+    cursor = connection.cursor()
+    
+    statement = """SELECT PASSWORD , USERTYPE FROM SITEUSER
+                            WHERE (USERNAME = %(username)s)           
+                        """
+    cursor.execute(statement, {'username' : username})
+    user = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    return user
 
-
+def drop_tables():
+    connection = dbapi2.connect(dsn)
+    cursor = connection.cursor()
+    
+    statement = """DROP TABLE MYORDER;
+                    DROP TABLE CUSTOMER;
+                    DROP TABLE COMPANY;
+                    DROP TABLE SITEUSER;
+                        """
+    cursor.execute(statement)
+    connection.commit()
+    connection.close()
+    return
 
 
 

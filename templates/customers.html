@@ -9,7 +9,7 @@ Created on Sun Nov  3 12:21:42 2019
 {% extends "layout.html" %}
 {% block title %}Customers{% endblock %}
 {% block content %}
-    <h1 class="title">Customers</h1>
+    <h1 class="title">Users</h1>
 
     {% if customers %}
     <form action="" method="post" name="customer_list">
@@ -36,5 +36,5 @@ Created on Sun Nov  3 12:21:42 2019
       </div>
     </form>
     {% endif %}
-    <button class="button is-danger is-small"><a href="{{ url_for('create_user_page') }}">Create Customer</a></button>
+    <button class="button is-danger is-small"><a href="{{ url_for('signup_page') }}">Create User</a></button>
 {% endblock %}

@@ -5,17 +5,15 @@ Created on Sat Nov  9 00:51:11 2019
 
 @author: cenk
 """
-
-from flask import current_app
 from flask_login import UserMixin
-
+from mysqlstatements import getpassword
 
 class User(UserMixin):
-    def __init__(self, username, password):
+    def __init__(self, username, password, usertype):
         self.username = username
         self.password = password
+        self.usertype = usertype
         self.active = True
-        self.is_admin = False
 
     def get_id(self):
         return self.username
@@ -25,9 +23,6 @@ class User(UserMixin):
         return self.active
 
 
-def get_user(user_id):
-    password = current_app.config["PASSWORDS"].get(user_id)
-    user = User(user_id, password) if password else None
-    if user is not None:
-        user.is_admin = user.username in current_app.config["ADMIN_USERS"]
-    return user
+def get_user(user_name):
+    username , password , usertype = getpassword(user_name)
+    return User(username , password , usertype)
