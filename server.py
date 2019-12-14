@@ -15,6 +15,12 @@ from views import User
 from mysqlstatements import get_user
 lm = LoginManager()
 
+DEBUG = False
+if(DEBUG == False):
+	url = os.getenv("DATABASE_URL")
+else:
+    url = "dbname='postgres' user='postgres' host='localhost' password='hastayimpw'"
+    initialize(url)
 
 
 @lm.user_loader
