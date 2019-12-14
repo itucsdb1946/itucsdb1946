@@ -9,7 +9,8 @@ from flask import Flask #render_template  #applications are instances of this cl
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager,login_required
 #from datetime import datetime
-
+import os
+from dbinit import initialize
 import views
 from views import User
 from mysqlstatements import get_user
