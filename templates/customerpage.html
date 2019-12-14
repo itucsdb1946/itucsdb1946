@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Customer Page{% endblock %}
+{% block content %}
+    <h1 class="title">Orders</h1>
+
+    {% if orders %}
+    <form action="" method="post" name="customer_list">
+      <table class="table is-striped is-fullwidth">
+        {% for order_id , date, company_name, avgday in orders %}
+        <tr>
+          <td>
+            <label class="checkbox">
+              <input type="checkbox" name="person" value="{{order_id}}"/>
+            </label>
+              {{ data}}
+              {{ company_name }}
+              {{ avgday }}
+              
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-danger is-small">Delete</button>
+        </div>
+      </div>
+    </form>
+    {% endif %}
+    <button class="button is-danger is-small"><a href="{{ url_for('signup_page') }}">Create User</a></button>
+{% endblock %}

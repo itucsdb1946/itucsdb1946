@@ -7,7 +7,7 @@ Created on Wed Sep 25 17:00:41 2019
 
 from flask import Flask #render_template  #applications are instances of this class
 from flask_bootstrap import Bootstrap
-from flask_login import LoginManager
+from flask_login import LoginManager,login_required
 #from datetime import datetime
 
 import views
@@ -38,6 +38,9 @@ def create_app():
     app.add_url_rule("/listcustomer", view_func=views.list_customers_page , methods = ['GET','POST'])
     app.add_url_rule("/createcustomer", view_func=views.create_customer_page , methods = ['GET','POST'])
     app.add_url_rule("/login", view_func=views.login_page, methods=["GET", "POST"])
+    app.add_url_rule("/customerpage", view_func=views.customer_page, methods=["GET", "POST"])
+    app.add_url_rule("/dashboard", view_func=views.dashboard, methods=["GET", "POST"])
+    app.add_url_rule("/companydashboard", view_func=views.company_dashboard, methods=["GET", "POST"])
     app.add_url_rule("/droptables", view_func=views.drop_tables_page)
     app.add_url_rule("/currentuser", view_func=views.current_user_page)
     
@@ -50,5 +53,3 @@ def create_app():
 if __name__ == "__main__":
     app = create_app()
     app.run(host="0.0.0.0", port=8080, debug=True)
-    
-    # there was an error

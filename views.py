@@ -8,7 +8,7 @@ Created on Sun Oct 13 22:48:31 2019
 from datetime import datetime
 
 from flask import render_template, request, redirect , url_for, session, flash
-from mysqlstatements import create_tables,get_customers,create_user,delete_user,create_customer, get_user, drop_tables
+from mysqlstatements import create_tables,get_customers,create_user,delete_user,create_customer, get_user, drop_tables, get_orders, delete_order, create_company, get_companies,create_order,get_info,update , update_order
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField#, BooleanField
 from wtforms.validators import InputRequired#, Length , #Email if neccessary
@@ -17,7 +17,7 @@ from wtforms.validators import InputRequired#, Length , #Email if neccessary
 #from passlib.hash import pbkdf2_sha256 as hasher
 
 
-from flask_login import UserMixin,current_user, login_user
+from flask_login import UserMixin,current_user, login_user, login_required, logout_user
 
 class User(UserMixin):
     def __init__(self, username, password, usertype):
@@ -54,16 +54,88 @@ def signup_page():
         form_account_type = request.form["account_type"]
         form_password = request.form["password"]
         create_user(form_username,form_password,form_account_type)
-        session['my_var'] = form_username
-        return redirect(url_for("create_customer_page"))
+        #session['my_var'] = form_username
+        form_name = request.form["Customer name"]
+        form_surname = request.form["Customer surname"]
+        form_address = request.form["Customer address"]
+        if(request.form["account_type"] == "Customer"):
+            form_name = request.form["Customer name"]
+            form_surname = request.form["Customer surname"]
+            form_address = request.form["Customer address"]
+            create_customer(form_username,form_name,form_surname,form_address)
+            redirect(url_for("list_customers_page"))
+        elif(request.form["account_type"] == "Company"):
+            form_name = request.form["Company name"]
+            form_founded = request.form["Founded year"]
+            form_avgday = request.form["Avarage Day"]
+            create_company(form_username, form_name, form_founded,form_avgday)
+        return redirect(url_for("login_page"))
     
+@login_required 
+def dashboard():
+    if request.method == "GET":
+        companies = get_companies()
+        orders = get_orders(current_user.username,"CUSTOMER")
+        customerinfo = get_info(current_user.username,"CUSTOMER")
+        return render_template("dashboard.html", companies = sorted(companies) , orders= orders, customerinfo=customerinfo) 
+    else:
+        if 'CreateOrder' in request.form:
+            currentuser = current_user
+            company_id = request.form["which_company"]
+            item = request.form["item"]
+            create_order(currentuser.username,company_id,item)
+            return redirect(url_for("dashboard"))
+        elif 'DeleteOrder' in request.form:
+            orders = get_orders(current_user.username,"CUSTOMER")
+            orders_todelete = request.form.getlist("order")
+            for order_id in orders_todelete:
+                delete_order(order_id)
+            return redirect(url_for("dashboard"))
+        elif 'UpdateOrder' in request.form:
+            orders = get_orders(current_user.username,"CUSTOMER")
+            order_toupdate = request.form.getlist("order")
+            newvalue = request.form["Updateitem"]
+            update_order(order_toupdate[0],newvalue)
+            return redirect(url_for("dashboard"))
+        elif 'Logout' in request.form:
+            logout_user()
+            return redirect(url_for("login_page"))
+        elif 'Updateprofile' in request.form:
+            newvalue = request.form["Updatevalue"]
+            whichupdate = request.form["Whichupdate"]
+            update(current_user.username,whichupdate,newvalue,"CUSTOMER")
+            return redirect(url_for("dashboard"))
+        
+@login_required 
+def company_dashboard():
+    if request.method == "GET":
+        companies = get_companies()
+        orders = get_orders(current_user.username,"COMPANY")
+        #for i,j,k,l,m in orders:
+        #    return m
+        info = get_info(current_user.username ,"COMPANY")
+        return render_template("companydashboard.html", companies = sorted(companies) , orders= orders, customerinfo=info) 
+    else:
+        if 'DeleteOrder' in request.form:
+            orders_todelete = request.form.getlist("order")
+            for order_id in orders_todelete:
+                delete_order(order_id)
+            return redirect(url_for("company_dashboard"))
+        elif 'Logout' in request.form:
+            logout_user()
+            return redirect(url_for("login_page"))
+        elif 'Updateprofile' in request.form:
+            newvalue = request.form["Updatevalue"]
+            whichupdate = request.form["Whichupdate"]
+            update(current_user.username,whichupdate,newvalue ,"COMPANY")
+            return redirect(url_for("company_dashboard"))
+
 def list_customers_page():
     if request.method == "GET":
         customers = get_customers()
         return render_template("customers.html", customers = sorted(customers))
     else:
         customers_todelete = request.form.getlist("person")
-        
         for customer_id in customers_todelete:
             delete_user(customer_id)
         
@@ -79,8 +151,9 @@ def create_customer_page():
         form_address = request.form["address"]
         create_customer(username,form_name,form_surname,form_address)
         return redirect(url_for("list_customers_page"))
-    
+
 def login_page():
+    logout_user()
     form = LoginForm()
     if form.validate_on_submit():
         username = form.data["username"]
@@ -92,9 +165,26 @@ def login_page():
             if password == realpassword: ##burayı sonra hashli yaparsın
                 login_user(user)
                 flash("You have logged in.")
-                next_page = request.args.get("next", url_for("list_customers_page")) # list_customer_page for now
+                if usertype == 'Customer':
+                    next_page = request.args.get("next", url_for("dashboard"))
+                elif usertype == 'Company':
+                    next_page = request.args.get("next", url_for("company_dashboard"))
                 return redirect(next_page)
+            else:
+                return ("No such user")
     return render_template("login.html", form=form)
+
+def customer_page():
+    if request.method == "GET":
+        orders = get_orders()
+        return render_template("customerpage.html", orders = sorted(orders))
+    else:
+        orders_todelete = request.form.getlist("person")
+        
+        for order_id in orders_todelete:
+            delete_order(order_id)
+        
+    return redirect(url_for("list_customers_page"))
 
 def drop_tables_page():
     drop_tables()

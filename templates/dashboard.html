@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V9</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='util.css') }}">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	
+	<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+			<form class="login100-form validate-form" action="" method="post" name="movie_edit">
+				<div class="container-login101-form-btn" align="center" >
+					<button type="button" class="login101-form-btn" onclick="CreateOrderFunction()"  style="display:inline">
+						Create Order
+					</button>
+					<button type="button" class="login101-form-btn" onclick="DeleteOrderFunction()" style="display:inline">
+						Delete Order
+					</button>
+					<button type="button" class="login101-form-btn" onclick="UpdateProfileFunction()" style="display:inline">
+						Profile
+					</button>
+					<button type="submit" class="login101-form-btn" name="Logout" style="display:inline">
+						Logout
+					</button>
+				</div>
+				
+
+				<div class="container-login100-form-btn" id="CreateOrder" style="display:None">
+				<br>
+				<br>
+				<span class="login100-form-title p-b-37">
+    				Ordering Interface
+				</span>
+				
+				<div class="wrap-input100 validate-input m-b-20" data-validate="Item">
+					<input class="input100" type="text" name="item" placeholder="What do you want to order?">
+					<span class="focus-input100"></span>
+				</div>
+
+				From which company?
+                <select name="which_company" class="wrap-input100 validate-input m-b-25">
+                    {% for company_id , name in companies %}
+                      <option value="{{company_id}}">
+                      {{ name }}
+                      </option>
+                    {% endfor %}
+                
+				</select>
+				
+				<b>
+					<button type="submit" class="login100-form-btn" name="CreateOrder">
+						Create Order
+					</button>
+				</div>
+				<br>
+				<div class="container-login100-form-btn" id="DeleteOrder"  style="display:None">
+				<br>
+				ORDERS
+				<div class="wrap-input100 validate-input m-b-20">
+				{% if orders %}
+                        <form action="" method="post" name="order_list">
+                          <table align="center" border="1">
+                          <tr>
+                              <td>
+                              </td>
+                              <td>
+                                  DATE
+                                  </td>
+                                  <td>
+                                  COMPANY
+                                  </td>
+                                  <td>
+                                  AVARAGE DAYS
+                                  </td>
+                                  <td>
+                                  Item
+                                  </td>
+                            </tr>
+                            {% for order_id , order_date , company, avgday,item in orders %}
+                            <tr>
+                              <td>
+                                <label class="checkbox">
+                                  <input type="checkbox" name="order" value="{{order_id}}"/>
+                                </label>
+                              </td>
+                              <td>
+                                  {{ order_date }}
+                                  </td>
+                                  <td>
+                                  {{ company }}
+                                  </td>
+                                  <td>
+                                  {{ avgday }}
+                                  </td>
+                                  <td>
+                                  {{ item }}
+                                  </td>
+                            </tr>
+                            {% endfor %}
+                          </table>
+                  {% endif %}
+                          <br>
+                          </div>
+                          <div class="wrap-input100 validate-input m-b-20" data-validate="Updateitem">
+					<input class="input100" type="text" name="Updateitem" placeholder="What do you want to order instead?">
+					<span class="focus-input100"></span>
+				</div>
+					<button type="submit" class="login100-form-btn" name="UpdateOrder" align="center">
+						Update Order
+					</button>
+					<button type="submit" class="login100-form-btn" name="DeleteOrder" align="center">
+						Delete Order
+					</button>
+				</div>
+				
+				<div class="container-login100-form-btn" id="UpdateProfile"  style="display:None">
+				<br>
+				{% if customerinfo %}
+                        <form action="" method="post" name="order_list">
+                          <table align="center" border="1">
+                            {% for name,surname,address in customerinfo %}
+                            <tr>
+                            <td>
+                                <label class="checkbox">
+                                  <input type="checkbox" name="Whichupdate" value="NAME"/>
+                                </label>
+                                  Name
+                                  </td>
+                              <td>
+                                  {{ name }}
+                              </td>
+                              
+                            </tr>
+                            <tr>
+                              <td>
+                              <label class="checkbox">
+                                  <input type="checkbox" name="Whichupdate" value="SURNAME"/>
+                                </label>
+                                  Surname
+                              </td>
+                              <td>
+                                  {{ surname }}
+                              </td>
+                              
+                            </tr>
+                            <tr>
+                              <td>
+                              <label class="checkbox">
+                                  <input type="checkbox" name="Whichupdate" value="ADDRESS"/>
+                                </label>
+                                  Address
+                              </td>
+                              <td>
+                                  {{ address }}
+                              </td>
+                            </tr>
+                          </table>
+                          {% endfor %}
+                  {% endif %}
+				<div class="wrap-input100 validate-input m-b-20">
+				
+                          <br>
+                          <br>
+                  
+                  <div class="wrap-input100 validate-input m-b-20" data-validate="Updatevalue">
+					<input class="input100" type="text" name="Updatevalue" placeholder="What do you want to change it to?">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<label class="checkbox">
+                                  <input type="checkbox" name="Whichupdate" value="DELETE"/>
+                                </label>
+                                Do you want to delete your customer account?
+                          <br>
+                          <br>
+                          <br>
+                          </div>
+					<button type="submit" class="login100-form-btn" name="Updateprofile" align="center">
+						Update
+					</button>
+				</div>
+			</form>
+			
+		</div>
+	</div>
+	
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{{ url_for('static', filename='form.js') }}"></script>
+
+</body>
+</html>

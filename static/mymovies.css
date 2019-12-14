@@ -1,5 +1,5 @@
 h1 {
-    color: #00000;
+    color: red;
 }
 p {
     font-size: 50px;
@@ -7,4 +7,9 @@ p {
 
 footer {
     text-align: center;
+}
+
+#deneme1 {
+    display: none;
+    color: red;
 }
