@@ -39,7 +39,7 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired()])
 
 def home_page():
-    create_tables()
+    #create_tables()
     today = datetime.today()
     day_name = today.strftime("%A")
     current_time = today.strftime("%X")
