@@ -16,13 +16,11 @@ from views import User
 from mysqlstatements import get_user
 lm = LoginManager()
 
-DEBUG = False
-if(DEBUG == False):
-	url = os.getenv("DATABASE_URL")
-else:
-    url = "dbname='postgres' user='postgres' host='localhost' password='docker' port='5432'"
-    initialize(url)
+RELEASE = True
 
+if(not RELEASE):
+    os.environ['DATABASE_URL'] = "postgres://postgres:docker@localhost:5432/postgres"
+    initialize(os.environ.get('DATABASE_URL'))
 
 @lm.user_loader
 def load_user(user_id):
