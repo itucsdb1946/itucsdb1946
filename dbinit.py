@@ -48,6 +48,7 @@ INIT_STATEMENTS = [
 
 def initialize(url):
     with dbapi2.connect(url) as connection:
+        print("DENEME1: " ,url)
         cursor = connection.cursor()
         for statement in INIT_STATEMENTS:
             cursor.execute(statement)
@@ -57,6 +58,7 @@ def initialize(url):
 if __name__ == "__main__":
     url = os.getenv("DATABASE_URL")
     if url is None:
+        print("DENEME2: " ,url)
         print("Usage: DATABASE_URL=url python dbinit.py", file=sys.stderr)
         sys.exit(1)
     initialize(url)
