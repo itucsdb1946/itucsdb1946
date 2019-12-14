@@ -19,7 +19,7 @@ DEBUG = False
 if(DEBUG == False):
 	url = os.getenv("DATABASE_URL")
 else:
-    url = "dbname='postgres' user='postgres' host='localhost' password='docker'"
+    url = "dbname='postgres' user='postgres' host='localhost' password='docker' port='5432'"
     initialize(url)
 
 
