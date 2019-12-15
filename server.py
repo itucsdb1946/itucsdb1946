@@ -22,6 +22,14 @@ if(not RELEASE):
     os.environ['DATABASE_URL'] = "postgres://postgres:docker@localhost:5432/postgres"
     initialize(os.environ.get('DATABASE_URL'))
 """
+
+DEBUG = False
+if(DEBUG == False):
+	url = os.getenv("DATABASE_URL")
+else:
+    url = "dbname='postgres' user='postgres' host='localhost' password='hastayimpw'"
+    initialize(url)
+    
 @lm.user_loader
 def load_user(user_id):
     username = user_id
