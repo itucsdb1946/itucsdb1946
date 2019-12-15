@@ -18,6 +18,7 @@ INIT_STATEMENTS = [
                             SURNAME VARCHAR(50),
                             ADDRESS VARCHAR(300),
                             TOTAL_ORDERS INTEGER DEFAULT 0,
+                            YEAR_BORN INTEGER,
                             CONSTRAINT CONSTRAINT1
                             FOREIGN KEY (ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE);
@@ -27,6 +28,7 @@ INIT_STATEMENTS = [
                         AVGDAY INTEGER,
                         YEAR_FOUNDED INTEGER,
                         TOTAL_ORDERS INTEGER DEFAULT 0,
+                        CITY VARCHAR(40),
                         CONSTRAINT CONSTRAINT1
                             FOREIGN KEY (ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE);
@@ -36,6 +38,7 @@ INIT_STATEMENTS = [
                         COMPANY_ID INTEGER,
                         ORDER_DATE DATE NOT NULL DEFAULT CURRENT_DATE,
                         ITEM VARCHAR(100),
+                        HOW_MANY INTEGER,
                         CONSTRAINT CONSTRAINT1
                             FOREIGN KEY (CUSTOMER_ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE,
