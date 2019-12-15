@@ -11,7 +11,7 @@ dsn = """user='postgres' password='docker'
          host='localhost' port=5432 dbname='postgres'"""
 
 def update(username,whichupdate,newvalue,usertype):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """SELECT ID FROM SITEUSER
@@ -67,7 +67,7 @@ def update(username,whichupdate,newvalue,usertype):
 
 
 def get_info(username,usertype):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """SELECT ID FROM SITEUSER
@@ -94,7 +94,7 @@ def get_info(username,usertype):
 
 
 def create_tables():
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement =  """CREATE TABLE SITEUSER(
@@ -141,7 +141,7 @@ def create_tables():
     return
 
 def create_user(username,password,account_type):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """INSERT INTO SITEUSER (USERNAME , PASSWORD , USERTYPE)
@@ -154,7 +154,7 @@ def create_user(username,password,account_type):
     return
 
 def get_customers():
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """SELECT ID ,USERNAME , PASSWORD , USERTYPE FROM SITEUSER           
@@ -166,7 +166,7 @@ def get_customers():
     return customers
 
 def get_companies():
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """SELECT ID , NAME FROM COMPANY           
@@ -180,7 +180,7 @@ def get_companies():
 #def create_order():
 
 def get_orders(username,usertype):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """SELECT ID FROM SITEUSER
@@ -208,7 +208,7 @@ def get_orders(username,usertype):
     return orders
 
 def delete_user(id_todelete):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """DELETE FROM SITEUSER
@@ -222,7 +222,7 @@ def delete_user(id_todelete):
     return
 
 def delete_order(id_todelete):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """DELETE FROM MYORDER
@@ -236,7 +236,7 @@ def delete_order(id_todelete):
     return
 
 def update_order(id_todelete,newvalue):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """UPDATE MYORDER SET ITEM = %(newvalue)s
@@ -252,7 +252,7 @@ def update_order(id_todelete,newvalue):
 
 
 def create_customer(username, name,surname,address):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     statement = """SELECT ID FROM SITEUSER
                     WHERE (USERNAME = (%(username)s))           
@@ -283,7 +283,7 @@ CREATE TABLE COMPANY(
 YEAR FOUNDED DEFAULT OLMASIN OLUR MU YAHU
 """
 def create_company(username, name, year_founded,avgday):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     statement = """SELECT ID FROM SITEUSER
                     WHERE (USERNAME = (%(username)s))           
@@ -316,7 +316,7 @@ CREATE TABLE MYORDER(
                             ON DELETE CASCADE);
                         """
 def create_order(username,company_id,item):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """SELECT ID FROM SITEUSER
@@ -340,7 +340,7 @@ def create_order(username,company_id,item):
     
 
 def get_user(username):
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """SELECT PASSWORD , USERTYPE FROM SITEUSER
@@ -353,7 +353,7 @@ def get_user(username):
     return user
 
 def drop_tables():
-    connection = dbapi2.connect(dsn)
+    connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
     statement = """ DROP TABLE MYORDER;
