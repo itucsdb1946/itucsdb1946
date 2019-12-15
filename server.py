@@ -41,31 +41,28 @@ def load_user(user_id):
     else:
         return None
 
-def create_app():
-    app = Flask(__name__)
-    #app.config['DATABASE_URL'] = "postgres://postgres:docker@localhost:5432/postgres"
-    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-    Bootstrap(app)
+app = Flask(__name__)
+#app.config['DATABASE_URL'] = "postgres://postgres:docker@localhost:5432/postgres"
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+Bootstrap(app)
 
-    app.add_url_rule("/", view_func=views.home_page)
-    app.add_url_rule("/signup", view_func=views.signup_page , methods = ['GET','POST'])
-    app.add_url_rule("/listcustomer", view_func=views.list_customers_page , methods = ['GET','POST'])
-    app.add_url_rule("/createcustomer", view_func=views.create_customer_page , methods = ['GET','POST'])
-    app.add_url_rule("/login", view_func=views.login_page, methods=["GET", "POST"])
-    app.add_url_rule("/customerpage", view_func=views.customer_page, methods=["GET", "POST"])
-    app.add_url_rule("/dashboard", view_func=views.dashboard, methods=["GET", "POST"])
-    app.add_url_rule("/companydashboard", view_func=views.company_dashboard, methods=["GET", "POST"])
-    app.add_url_rule("/droptables", view_func=views.drop_tables_page)
-    app.add_url_rule("/currentuser", view_func=views.current_user_page)
-    
-    lm.init_app(app)
-    lm.login_view = "login_page"
+app.add_url_rule("/", view_func=views.home_page)
+app.add_url_rule("/signup", view_func=views.signup_page , methods = ['GET','POST'])
+app.add_url_rule("/listcustomer", view_func=views.list_customers_page , methods = ['GET','POST'])
+app.add_url_rule("/createcustomer", view_func=views.create_customer_page , methods = ['GET','POST'])
+app.add_url_rule("/login", view_func=views.login_page, methods=["GET", "POST"])
+app.add_url_rule("/customerpage", view_func=views.customer_page, methods=["GET", "POST"])
+app.add_url_rule("/dashboard", view_func=views.dashboard, methods=["GET", "POST"])
+app.add_url_rule("/companydashboard", view_func=views.company_dashboard, methods=["GET", "POST"])
+app.add_url_rule("/droptables", view_func=views.drop_tables_page)
+app.add_url_rule("/currentuser", view_func=views.current_user_page)
 
-    return app
+lm.init_app(app)
+lm.login_view = "login_page"
+
 
 
 if __name__ == "__main__":
-    app = create_app()
     #app.run(host="0.0.0.0", port=8080, debug=True)
     if(not RELEASE):
         app.run(debug=True)
