@@ -15,13 +15,13 @@ import views
 from views import User
 from mysqlstatements import get_user
 lm = LoginManager()
-"""
+
 RELEASE = True
 
 if(not RELEASE):
     os.environ['DATABASE_URL'] = "postgres://postgres:docker@localhost:5432/postgres"
     initialize(os.environ.get('DATABASE_URL'))
-"""
+
 """
 DEBUG = False
 if(DEBUG == False):
@@ -43,7 +43,7 @@ def load_user(user_id):
 
 def create_app():
     app = Flask(__name__)
-    app.config['DATABASE_URL'] = "postgres://postgres:docker@localhost:5432/postgres"
+    #app.config['DATABASE_URL'] = "postgres://postgres:docker@localhost:5432/postgres"
     app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
     Bootstrap(app)
 
@@ -66,4 +66,8 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    #app.run(host="0.0.0.0", port=8080, debug=True)
+    if(not RELEASE):
+        app.run(debug=True)
+    else:
+        app.run()
