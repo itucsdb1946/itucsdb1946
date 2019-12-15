@@ -6,6 +6,7 @@ Created on Fri Nov  1 20:37:41 2019
 """
 
 import psycopg2 as dbapi2
+import os
 
 dsn = """user='postgres' password='docker'
          host='localhost' port=5432 dbname='postgres'"""
