@@ -37,18 +37,22 @@ function customerFunction(){
 document.getElementById("customer_info").setAttribute("style", "");
 document.getElementById("customer_info1").setAttribute("style", ""); 
 document.getElementById("customer_info2").setAttribute("style", "");
+document.getElementById("customer_info3").setAttribute("style", "");
 document.getElementById("Company_info").setAttribute("style", "display:None");
 document.getElementById("Company_info1").setAttribute("style", "display:None"); 
-document.getElementById("Company_info2").setAttribute("style", "display:None");  
+document.getElementById("Company_info2").setAttribute("style", "display:None");
+document.getElementById("Company_info3").setAttribute("style", "display:None");  
 }
 
 function companyFunction(){
 document.getElementById("Company_info").setAttribute("style", "");
 document.getElementById("Company_info1").setAttribute("style", ""); 
 document.getElementById("Company_info2").setAttribute("style", "");
+document.getElementById("Company_info3").setAttribute("style", "");
 document.getElementById("customer_info").setAttribute("style", "display:None");
 document.getElementById("customer_info1").setAttribute("style", "display:None"); 
 document.getElementById("customer_info2").setAttribute("style", "display:None");
+document.getElementById("customer_info3").setAttribute("style", "display:None");
 }
 
 function CreateOrderFunction(){

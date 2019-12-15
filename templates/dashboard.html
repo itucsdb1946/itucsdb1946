@@ -60,6 +60,10 @@
 					<input class="input100" type="text" name="item" placeholder="What do you want to order?">
 					<span class="focus-input100"></span>
 				</div>
+				<div class="wrap-input100 validate-input m-b-20" data-validate="Howmany">
+					<input class="input100" type="text" name="Howmany" placeholder="How many you want it?">
+					<span class="focus-input100"></span>
+				</div>
 
 				From which company?
                 <select name="which_company" class="wrap-input100 validate-input m-b-25">
@@ -88,19 +92,22 @@
                               <td>
                               </td>
                               <td>
-                                  DATE
+                                  Date
                                   </td>
                                   <td>
-                                  COMPANY
+                                  Comp
                                   </td>
                                   <td>
-                                  AVARAGE DAYS
+                                  Avg days
                                   </td>
                                   <td>
                                   Item
                                   </td>
+                                  <td>
+                                  How many
+                                  </td>
                             </tr>
-                            {% for order_id , order_date , company, avgday,item in orders %}
+                            {% for order_id , order_date , company, avgday,item,howmany in orders %}
                             <tr>
                               <td>
                                 <label class="checkbox">
@@ -118,6 +125,9 @@
                                   </td>
                                   <td>
                                   {{ item }}
+                                  </td>
+                                  <td>
+                                  {{ howmany }}
                                   </td>
                             </tr>
                             {% endfor %}
@@ -142,7 +152,7 @@
 				{% if customerinfo %}
                         <form action="" method="post" name="order_list">
                           <table align="center" border="1">
-                            {% for name,surname,address in customerinfo %}
+                            {% for name,surname,address,yearborn in customerinfo %}
                             <tr>
                             <td>
                                 <label class="checkbox">
@@ -176,6 +186,17 @@
                               </td>
                               <td>
                                   {{ address }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                              <label class="checkbox">
+                                  <input type="checkbox" name="Whichupdate" value="bornin"/>
+                                </label>
+                                  Born in
+                              </td>
+                              <td>
+                                  {{ yearborn }}
                               </td>
                             </tr>
                           </table>

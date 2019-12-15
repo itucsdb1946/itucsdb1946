@@ -6,11 +6,10 @@ Created on Fri Nov  1 20:37:41 2019
 """
 
 import psycopg2 as dbapi2
-import os
 
 dsn = """user='postgres' password='docker'
          host='localhost' port=5432 dbname='postgres'"""
-
+import os
 def update(username,whichupdate,newvalue,usertype):
     connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
@@ -33,6 +32,10 @@ def update(username,whichupdate,newvalue,usertype):
             statement = """UPDATE CUSTOMER SET ADDRESS = %(newvalue)s
                                 WHERE (ID = %(user_id)s)
                             """
+        elif whichupdate == 'bornin':
+            statement = """UPDATE CUSTOMER SET YEAR_BORN = %(newvalue)s
+                                WHERE (ID = %(user_id)s)
+                            """
         elif whichupdate == 'DELETE':
             statement = """DELETE FROM CUSTOMER
                                 WHERE (ID = %(user_id)s);
@@ -50,6 +53,10 @@ def update(username,whichupdate,newvalue,usertype):
                             """
         elif whichupdate == 'year_founded':
             statement = """UPDATE COMPANY SET YEAR_FOUNDED = %(newvalue)s
+                                WHERE (ID = %(user_id)s)
+                            """
+        elif whichupdate == 'city':
+            statement = """UPDATE COMPANY SET CITY = %(newvalue)s
                                 WHERE (ID = %(user_id)s)
                             """
         elif whichupdate == 'DELETE':
@@ -78,11 +85,11 @@ def get_info(username,usertype):
     user_id = cursor.fetchone()
     
     if usertype == "CUSTOMER":
-        statement = """SELECT NAME,SURNAME,ADDRESS FROM CUSTOMER
+        statement = """SELECT NAME,SURNAME,ADDRESS,YEAR_BORN FROM CUSTOMER
                         WHERE (ID = %(user_id)s)        
                         """
     elif usertype == "COMPANY":
-        statement = """SELECT NAME,AVGDAY,YEAR_FOUNDED,TOTAL_ORDERS FROM COMPANY
+        statement = """SELECT NAME,AVGDAY,YEAR_FOUNDED,TOTAL_ORDERS,CITY FROM COMPANY
                         WHERE (ID = %(user_id)s)        
                         """
     cursor.execute(statement,{'user_id' : user_id})
@@ -110,6 +117,7 @@ def create_tables():
                             SURNAME VARCHAR(50),
                             ADDRESS VARCHAR(300),
                             TOTAL_ORDERS INTEGER DEFAULT 0,
+                            YEAR_BORN INTEGER,
                             CONSTRAINT CONSTRAINT1
                             FOREIGN KEY (ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE);
@@ -119,6 +127,7 @@ def create_tables():
                         AVGDAY INTEGER,
                         YEAR_FOUNDED INTEGER,
                         TOTAL_ORDERS INTEGER DEFAULT 0,
+                        CITY VARCHAR(40),
                         CONSTRAINT CONSTRAINT1
                             FOREIGN KEY (ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE);
@@ -128,6 +137,7 @@ def create_tables():
                         COMPANY_ID INTEGER,
                         ORDER_DATE DATE NOT NULL DEFAULT CURRENT_DATE,
                         ITEM VARCHAR(100),
+                        HOW_MANY INTEGER,
                         CONSTRAINT CONSTRAINT1
                             FOREIGN KEY (CUSTOMER_ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE,
@@ -190,12 +200,12 @@ def get_orders(username,usertype):
     cursor.execute(statement, {'username' : username})
     user_id = cursor.fetchone()
     if usertype == "CUSTOMER":
-        statement = """SELECT MYORDER.ORDER_ID, MYORDER.ORDER_DATE ,COMPANY.NAME, COMPANY.AVGDAY ,MYORDER.ITEM FROM COMPANY,MYORDER
+        statement = """SELECT MYORDER.ORDER_ID, MYORDER.ORDER_DATE ,COMPANY.NAME, COMPANY.AVGDAY ,MYORDER.ITEM,MYORDER.HOW_MANY FROM COMPANY,MYORDER
                         WHERE (COMPANY.ID = MYORDER.COMPANY_ID) AND (MYORDER.CUSTOMER_ID = %(user_id)s)     
                         """
     elif usertype == "COMPANY":
         statement = """SELECT
-                        MYORDER.ORDER_ID, MYORDER.ORDER_DATE ,MYORDER.ITEM, COMPANY.AVGDAY, CUSTOMER.ADDRESS 
+                        MYORDER.ORDER_ID, MYORDER.ORDER_DATE ,MYORDER.ITEM, COMPANY.AVGDAY, CUSTOMER.ADDRESS , MYORDER.HOW_MANY 
                         FROM
                         COMPANY INNER JOIN MYORDER
                         ON (COMPANY.ID = MYORDER.COMPANY_ID) AND (MYORDER.COMPANY_ID = %(user_id)s)
@@ -252,7 +262,7 @@ def update_order(id_todelete,newvalue):
 
 
 
-def create_customer(username, name,surname,address):
+def create_customer(username, name,surname,address,yearborn):
     connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     statement = """SELECT ID FROM SITEUSER
@@ -262,10 +272,10 @@ def create_customer(username, name,surname,address):
     #return username
     for item in cursor:
         user_id = item ###Burası degismeliiiiiiiiiiiiiiiiiiiiiiiiii
-    statement = """INSERT INTO CUSTOMER (ID , NAME,SURNAME , ADDRESS)
-                    VALUES ( %(user_id)s , %(name)s , %(surname)s , %(address)s )            
+    statement = """INSERT INTO CUSTOMER (ID , NAME,SURNAME , ADDRESS, YEAR_BORN)
+                    VALUES ( %(user_id)s , %(name)s , %(surname)s , %(address)s ,%(yearborn)s )            
                         """
-    cursor.execute(statement, {'user_id' : user_id, 'name' : name , 'surname' : surname , 'address' : address })
+    cursor.execute(statement, {'user_id' : user_id, 'name' : name , 'surname' : surname , 'address' : address , 'yearborn' : yearborn })
     connection.commit()
     cursor.close()
     connection.close()
@@ -283,7 +293,7 @@ CREATE TABLE COMPANY(
 
 YEAR FOUNDED DEFAULT OLMASIN OLUR MU YAHU
 """
-def create_company(username, name, year_founded,avgday):
+def create_company(username, name, year_founded,avgday,city):
     connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     statement = """SELECT ID FROM SITEUSER
@@ -293,10 +303,10 @@ def create_company(username, name, year_founded,avgday):
     #return username
     for item in cursor:
         user_id = item ###Burası degismeliiiiiiiiiiiiiiiiiiiiiiiiii
-    statement = """INSERT INTO COMPANY (ID , NAME , YEAR_FOUNDED, AVGDAY)
-                    VALUES ( %(user_id)s , %(name)s , %(year_founded)s , %(avgday)s )            
+    statement = """INSERT INTO COMPANY (ID , NAME , YEAR_FOUNDED, AVGDAY, CITY)
+                    VALUES ( %(user_id)s , %(name)s , %(year_founded)s , %(avgday)s , %(city)s )            
                         """
-    cursor.execute(statement, {'user_id' : user_id, 'name' : name , 'year_founded' : year_founded , 'avgday' : avgday })
+    cursor.execute(statement, {'user_id' : user_id, 'name' : name , 'year_founded' : year_founded ,  'avgday':avgday, 'city' : city })
     connection.commit()
     cursor.close()
     connection.close()
@@ -316,7 +326,7 @@ CREATE TABLE MYORDER(
                             FOREIGN KEY (COMPANY_ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE);
                         """
-def create_order(username,company_id,item):
+def create_order(username,company_id,item,howmany):
     connection = dbapi2.connect(os.getenv("DATABASE_URL"))
     cursor = connection.cursor()
     
@@ -327,14 +337,14 @@ def create_order(username,company_id,item):
     user_id = cursor.fetchone()
     for item in cursor:
         user_id = item ###Burası degismeliiiiiiiiiiiiiiiiiiiiiiiiii
-    statement = """INSERT INTO MYORDER (CUSTOMER_ID , COMPANY_ID , ITEM)
-                    VALUES ( %(customer_id)s , %(company_id)s , %(item)s );
+    statement = """INSERT INTO MYORDER (CUSTOMER_ID , COMPANY_ID , ITEM ,HOW_MANY)
+                    VALUES ( %(customer_id)s , %(company_id)s , %(item)s ,%(howmany)s);
                     UPDATE CUSTOMER SET TOTAL_ORDERS = TOTAL_ORDERS + 1
                     WHERE ID = %(customer_id)s;
                     UPDATE COMPANY SET TOTAL_ORDERS = TOTAL_ORDERS + 1
                     WHERE ID = %(company_id)s
                         """
-    cursor.execute(statement, {'customer_id' : user_id, 'company_id' : company_id , 'item' : item })
+    cursor.execute(statement, {'customer_id' : user_id, 'company_id' : company_id , 'item' : item, 'howmany' : howmany  })
     connection.commit()
     cursor.close()
     connection.close()

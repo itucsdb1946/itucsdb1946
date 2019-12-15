@@ -12,6 +12,7 @@ from mysqlstatements import create_tables,get_customers,create_user,delete_user,
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField#, BooleanField
 from wtforms.validators import InputRequired#, Length , #Email if neccessary
+
 #import user.py
 
 #from passlib.hash import pbkdf2_sha256 as hasher
@@ -39,7 +40,7 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired()])
 
 def home_page():
-    #create_tables()
+    create_tables()
     today = datetime.today()
     day_name = today.strftime("%A")
     current_time = today.strftime("%X")
@@ -54,21 +55,19 @@ def signup_page():
         form_account_type = request.form["account_type"]
         form_password = request.form["password"]
         create_user(form_username,form_password,form_account_type)
-        #session['my_var'] = form_username
-        form_name = request.form["Customer name"]
-        form_surname = request.form["Customer surname"]
-        form_address = request.form["Customer address"]
         if(request.form["account_type"] == "Customer"):
             form_name = request.form["Customer name"]
             form_surname = request.form["Customer surname"]
             form_address = request.form["Customer address"]
-            create_customer(form_username,form_name,form_surname,form_address)
+            form_birth = request.form["Customer born"]
+            create_customer(form_username,form_name,form_surname,form_address,form_birth)
             redirect(url_for("list_customers_page"))
         elif(request.form["account_type"] == "Company"):
             form_name = request.form["Company name"]
             form_founded = request.form["Founded year"]
             form_avgday = request.form["Avarage Day"]
-            create_company(form_username, form_name, form_founded,form_avgday)
+            form_city = request.form["City"]
+            create_company(form_username, form_name, form_founded,form_avgday,form_city)
         return redirect(url_for("login_page"))
     
 @login_required 
@@ -83,7 +82,8 @@ def dashboard():
             currentuser = current_user
             company_id = request.form["which_company"]
             item = request.form["item"]
-            create_order(currentuser.username,company_id,item)
+            howmany = request.form["Howmany"]
+            create_order(currentuser.username,company_id,item,howmany)
             return redirect(url_for("dashboard"))
         elif 'DeleteOrder' in request.form:
             orders = get_orders(current_user.username,"CUSTOMER")

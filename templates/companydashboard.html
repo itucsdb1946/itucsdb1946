@@ -66,14 +66,15 @@
                                   </td>
                                   <td>
                                   AVARAGE DAYS
-                                  
-                              </td>
-                              <td>
-                                  Customer_name
-                                  
-                              </td>
+                                  </td>
+                                  <td>
+                                  Cus. add.    
+                                  </td>
+                                  <td>
+                                  How many    
+                                  </td>
                             </tr>
-                            {% for order_id , order_date , item, avgday , customer_name in orders %}
+                            {% for order_id , order_date , item, avgday , customer_add, howmany in orders %}
                             <tr>
                               <td>
                                 <label class="checkbox">
@@ -90,7 +91,10 @@
                                   {{ avgday }}
                                   </td>
                                   <td>
-                                  {{ customer_name }}
+                                  {{ customer_add }}
+                                  </td>
+                                  <td>
+                                  {{ howmany }}
                                   </td>
                             </tr>
                             {% endfor %}
@@ -110,7 +114,7 @@
 				{% if customerinfo %}
                         <form action="" method="post" name="order_list">
                           <table align="center" border="1">
-                            {% for name,avgday,year_founded,total_orders in customerinfo %}
+                            {% for name,avgday,year_founded,total_orders,city in customerinfo %}
                             <tr>
                             <td>
                                 <label class="checkbox">
@@ -148,12 +152,24 @@
                             </tr>
                             <tr>
                               <td>
+                              <label class="checkbox">
+                                  <input type="checkbox" name="Whichupdate" value="city"/>
+                                </label>
+                                  City
+                              </td>
+                              <td>
+                                  {{ city }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
                                   TOTAL ORDERS
                               </td>
                               <td>
                                   {{ total_orders }}
                               </td>
                             </tr>
+                            
                           </table>
                           {% endfor %}
                   {% endif %}
