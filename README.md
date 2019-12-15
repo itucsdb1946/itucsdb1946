@@ -1,2 +1,0 @@
-# itucsdb1946
-READ ME FILE
