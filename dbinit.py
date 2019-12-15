@@ -5,14 +5,14 @@ import psycopg2 as dbapi2
 
 
 INIT_STATEMENTS = [
-    """CREATE TABLE SITEUSER(
+    """CREATE TABLE IF NOT EXISTS SITEUSER(
                         ID SERIAL PRIMARY KEY,
                         USERNAME VARCHAR(40),
                         PASSWORD VARCHAR(100),
                         USERTYPE VARCHAR(10));
     """,
     """
-                    CREATE TABLE CUSTOMER(
+                    CREATE TABLE IF NOT EXISTS CUSTOMER(
                             ID INTEGER,
                             NAME VARCHAR(50),
                             SURNAME VARCHAR(50),
@@ -21,7 +21,7 @@ INIT_STATEMENTS = [
                             CONSTRAINT CONSTRAINT1
                             FOREIGN KEY (ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE);
-    ""","""               CREATE TABLE COMPANY(
+    ""","""               CREATE TABLE IF NOT EXISTS COMPANY(
                         ID INTEGER,
                         NAME VARCHAR(40),
                         AVGDAY INTEGER,
@@ -30,7 +30,7 @@ INIT_STATEMENTS = [
                         CONSTRAINT CONSTRAINT1
                             FOREIGN KEY (ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE);
-    ""","""             CREATE TABLE MYORDER(
+    ""","""             CREATE TABLE IF NOT EXISTS MYORDER(
                         ORDER_ID SERIAL PRIMARY KEY,
                         CUSTOMER_ID INTEGER,
                         COMPANY_ID INTEGER,
@@ -61,4 +61,4 @@ if __name__ == "__main__":
         print("DENEME2: " ,url)
         print("Usage: DATABASE_URL=url python dbinit.py", file=sys.stderr)
         sys.exit(1)
-    #initialize(url)
+    initialize(url)
