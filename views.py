@@ -39,7 +39,6 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired()])
 
 def home_page():
-<<<<<<< HEAD
     return redirect(url_for("login_page"))
 
 def signup_page():
