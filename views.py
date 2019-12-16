@@ -41,14 +41,6 @@ class LoginForm(FlaskForm):
 def home_page():
 <<<<<<< HEAD
     return redirect(url_for("login_page"))
-=======
-    #create_tables()
-    today = datetime.today()
-    day_name = today.strftime("%A")
-    current_time = today.strftime("%X")
-    current_date = today.strftime("%x")
-    return render_template("home.html", day=day_name , time = current_time , date = current_date)
->>>>>>> cc6976bccdc87fef96b965d792fcdf024db01f0e
 
 def signup_page():
     if request.method == "GET":
