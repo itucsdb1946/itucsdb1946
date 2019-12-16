@@ -17,3 +17,10 @@ PASSWORDS = {
 }
 
 ADMIN_USERS = ["admin"]
+
+def is_admin(checkpassword):
+    if checkpassword == "admin123":
+        return True
+    else:
+        return False
+    

@@ -12,11 +12,10 @@ from mysqlstatements import create_tables,get_customers,create_user,delete_user,
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField#, BooleanField
 from wtforms.validators import InputRequired#, Length , #Email if neccessary
-
+from setting import is_admin
 #import user.py
 
 #from passlib.hash import pbkdf2_sha256 as hasher
-
 
 from flask_login import UserMixin,current_user, login_user, login_required, logout_user
 
@@ -40,12 +39,16 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired()])
 
 def home_page():
+<<<<<<< HEAD
+    return redirect(url_for("login_page"))
+=======
     #create_tables()
     today = datetime.today()
     day_name = today.strftime("%A")
     current_time = today.strftime("%X")
     current_date = today.strftime("%x")
     return render_template("home.html", day=day_name , time = current_time , date = current_date)
+>>>>>>> cc6976bccdc87fef96b965d792fcdf024db01f0e
 
 def signup_page():
     if request.method == "GET":
@@ -131,6 +134,10 @@ def company_dashboard():
             return redirect(url_for("company_dashboard"))
 
 def list_customers_page():
+    currentuser = current_user
+    if not is_admin(currentuser.password):
+        logout_user()
+        return redirect(url_for("login_page"))
     if request.method == "GET":
         customers = get_customers()
         return render_template("customers.html", customers = sorted(customers))
@@ -187,6 +194,10 @@ def customer_page():
     return redirect(url_for("list_customers_page"))
 
 def drop_tables_page():
+    currentuser = current_user
+    if not is_admin(currentuser.password):
+        logout_user()
+        return redirect(url_for("login_page"))
     drop_tables()
     return redirect(url_for("home_page"))
 
