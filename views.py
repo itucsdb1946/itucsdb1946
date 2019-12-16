@@ -12,7 +12,7 @@ from mysqlstatements import create_tables,get_customers,create_user,delete_user,
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField#, BooleanField
 from wtforms.validators import InputRequired#, Length , #Email if neccessary
-from setting import is_admin
+from settings import is_admin
 #import user.py
 
 #from passlib.hash import pbkdf2_sha256 as hasher
