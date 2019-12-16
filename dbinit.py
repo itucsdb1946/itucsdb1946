@@ -13,7 +13,7 @@ INIT_STATEMENTS = [
     """,
     """
                     CREATE TABLE IF NOT EXISTS CUSTOMER(
-                            ID INTEGER,
+                            ID INTEGER PRIMARY KEY,
                             NAME VARCHAR(50),
                             SURNAME VARCHAR(50),
                             ADDRESS VARCHAR(300),
@@ -23,7 +23,7 @@ INIT_STATEMENTS = [
                             FOREIGN KEY (ID) REFERENCES SITEUSER(ID)
                             ON DELETE CASCADE);
     ""","""               CREATE TABLE IF NOT EXISTS COMPANY(
-                        ID INTEGER,
+                        ID INTEGER PRIMARY KEY,
                         NAME VARCHAR(40),
                         AVGDAY INTEGER,
                         YEAR_FOUNDED INTEGER,
