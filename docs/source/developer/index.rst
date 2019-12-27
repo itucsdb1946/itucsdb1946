@@ -18,8 +18,7 @@ This part will contain information about the code structure of this project.
 Views
 ^^^^^
 
-Views render what the user actually sees and also it gets input out of user. The main views functions will be discussed in Views subsection.
-
+Views render what the user actually sees and also it gets input out of user. The main views functions will be discussed below.
 
 
 **************
