@@ -6,7 +6,11 @@ Database Design
 
 **explain the database design of your project**
 
-**include the E/R diagram(s)**
+.. figure:: images/tables.png
+
+	Table Diagram
+
+Code (Model-View-Template Structure)
 
 Code
 ----
