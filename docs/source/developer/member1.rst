@@ -43,6 +43,10 @@ This get the proper information from frontend and creates a user. Then if the us
 		    create_company(form_username, form_name, form_founded,form_avgday,form_city)
 		return redirect(url_for("login_page"))
 		
+
+asddddddddddddddddddddddddddddddddd
+
+
 **************
 3. dashboard
 **************
