@@ -6,6 +6,7 @@ Views
 **************
 
 This routes you to the login page.
+
 .. code-block:: python
 
 	def home_page():
