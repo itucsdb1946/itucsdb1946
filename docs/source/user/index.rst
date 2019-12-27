@@ -72,7 +72,7 @@ Once you logged in to the website as a company you will see this page. It will c
 
 Once you click on Delete Order this section will appear. Here you can see the orders that is made from your specific company with detailed information. You can check one of the orders with checkbox and then you can delete that specific order.
 
-.. figure:: images/CompanyrDeleteOrder.png
+.. figure:: images/CompanyDeleteOrder.png
    :align:   center
 
 	Customer Delete Order
