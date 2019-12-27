@@ -2,23 +2,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ITUCSDB1817's (Accio) documentation!
+Welcome to ITUCSDB1946's (Delivery Management System) documentation!
 ===============================================
 
-:Team: Team 17
+:Team: Team 46
 
 :Members:
 
-   * Efe Hakan Gençoğlu
-   * Buse Kuz
+   * Cenk Eralp
 
 
-Accio is a community driven discussion and link agregation site.
-It was inspired by `Reddit <https://www.reddit.com>`_.
+Delivery Management System is a very simple online shopping site where people can order
+items from companies. Then, both customers and companies can see the orders in their allowed way. 
 
-In Accio, users can submit posts composed of links, texts, images and short videos.
-Users can create tags that poeple will post to, and create communities with
-their own rules and set of moderators.
 
 .. toctree::
    :maxdepth: 4
