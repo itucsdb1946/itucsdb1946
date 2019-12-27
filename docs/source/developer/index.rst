@@ -4,7 +4,7 @@ Developer Guide
 Database Design
 ---------------
 
-**explain the database design of your project**
+**For this project I decided to implement a delivery management system. So, I needed three tables. Customer table for holding the customer data, Company table for holding company and Myorder table for holding order data.**
 
 .. figure:: images/tables.png
 
