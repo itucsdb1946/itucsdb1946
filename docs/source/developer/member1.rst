@@ -1,12 +1,46 @@
-Tables
+Views
 ===================================
 
-.. note:: All table creations exist in db_init.py file.
+**************
+1. home_page
+**************
+
+This routes you to the login page.
+.. code-block:: python
+
+	def home_page():
+    		return redirect(url_for("login_page"))
 
 **************
-Customer
+1. signup_page
 **************
-This table will contain customer information. It will have a reference to siteuser table on id.
+
+This get the proper information from frontend and creates a user. Then if the user is a customer it creates a customer, else if the user is a company it creates a company.
+
+.. code-block:: python
+
+	def signup_page():
+	    if request.method == "GET":
+		return render_template("movie_edit.html")
+	    else:
+		form_username = request.form["username"]
+		form_account_type = request.form["account_type"]
+		form_password = request.form["password"]
+		create_user(form_username,form_password,form_account_type)
+		if(request.form["account_type"] == "Customer"):
+		    form_name = request.form["Customer name"]
+		    form_surname = request.form["Customer surname"]
+		    form_address = request.form["Customer address"]
+		    form_birth = request.form["Customer born"]
+		    create_customer(form_username,form_name,form_surname,form_address,form_birth)
+		    redirect(url_for("list_customers_page"))
+		elif(request.form["account_type"] == "Company"):
+		    form_name = request.form["Company name"]
+		    form_founded = request.form["Founded year"]
+		    form_avgday = request.form["Avarage Day"]
+		    form_city = request.form["City"]
+		    create_company(form_username, form_name, form_founded,form_avgday,form_city)
+		return redirect(url_for("login_page"))
 
 1. Creation
 ~~~~~~~~~~~~~~~~~~~~~~~~
