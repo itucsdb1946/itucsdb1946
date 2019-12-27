@@ -18,10 +18,7 @@ This part will contain information about the code structure of this project.
 Views
 ^^^^^
 
-Views are what end-users are exposed to. It couples models and templates, renders them and serves them
-to the users. These views are explained in detail on member specific implementation pages.
-
-They are located at the folder ``routes/``
+Views render what the user actually sees and also it gets input out of user. The main views functions will be discussed in Views subsection.
 
 Templates
 ^^^^^
