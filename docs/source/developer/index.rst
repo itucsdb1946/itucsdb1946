@@ -13,9 +13,7 @@ Database Design
 Code
 ------
 
-
-Models
-^^^^^^
+This part will contain information about the code structure of this project.
 
 Views
 ^^^^^
