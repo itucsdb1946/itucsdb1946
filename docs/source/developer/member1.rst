@@ -44,9 +44,6 @@ This get the proper information from frontend and creates a user. Then if the us
 		return redirect(url_for("login_page"))
 		
 
-asddddddddddddddddddddddddddddddddd
-
-
 **************
 3. dashboard
 **************
