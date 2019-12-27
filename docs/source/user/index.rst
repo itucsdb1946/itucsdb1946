@@ -70,22 +70,16 @@ Company Dashboard
 
 Once you logged in to the website as a company you will see this page. It will contain 2 different subsections and 1 button for logging out.
 
-
-.. figure:: images/CompanyDashboard.png
-   :align:   center
-
-	Company Dashboard
-
 Once you click on Delete Order this section will appear. Here you can see the orders that is made from your specific company with detailed information. You can check one of the orders with checkbox and then you can delete that specific order.
 
-.. figure:: images/CustomerDeleteOrder.png
+.. figure:: images/CompanyrDeleteOrder.png
    :align:   center
 
 	Customer Delete Order
 
 Once you click on Profile this section will appear. Here you can see your detailed company information. You can check one of the info with checkbox and then you can either update it with a new value. Also, you can delete your company account.
 
-.. figure:: images/CustomerProfile.png
+.. figure:: images/CompanyProfile.png
    :align:   center
 
 	Customer Profile
