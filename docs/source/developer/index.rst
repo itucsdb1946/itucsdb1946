@@ -26,6 +26,22 @@ Code
          def __init__(self, x):
             self.x = x
 
+Views
+^^^^^
+
+Views are what end-users are exposed to. It couples models and templates, renders them and serves them
+to the users. These views are explained in detail on member specific implementation pages.
+
+They are located at the folder ``routes/``
+
+Templates
+^^^^^
+
+Templates are not changed significantly and are written in Jinja2 format.
+
+They are located at the folder ``templates/`` and are to be used by views.
+
+
 .. toctree::
 
    member1
