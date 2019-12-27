@@ -1,4 +1,4 @@
-Welcome to itucsdb46's documentation!
+Developer
 =====================================
 
 :Team: Team Name
