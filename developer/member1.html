@@ -1,0 +1,939 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tables &mdash; ITUCSDB1946  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Developer Guide" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ITUCSDB1946
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#database-design">Database Design</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#code">Code</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#views">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#templates">Templates</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#my-sql-statements">My SQL Statements</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Tables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ITUCSDB1946</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>Tables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/developer/member1.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tables">
+<h1>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All table creations exist in db_init.py file.</p>
+</div>
+<div class="section" id="customer">
+<h2>Customer<a class="headerlink" href="#customer" title="Permalink to this headline">¶</a></h2>
+<p>This table will contain customer information. It will have a reference to siteuser table on id.</p>
+<div class="section" id="creation">
+<h3>1. Creation<a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">CUSTOMER</span><span class="p">(</span>
+        <span class="n">ID</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+        <span class="n">NAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+        <span class="n">SURNAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+        <span class="n">ADDRESS</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">300</span><span class="p">),</span>
+        <span class="n">TOTAL_ORDERS</span> <span class="nb">INTEGER</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">YEAR_BORN</span> <span class="nb">INTEGER</span><span class="p">,</span>
+        <span class="k">CONSTRAINT</span> <span class="n">CONSTRAINT1</span>
+        <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">ID</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">SITEUSER</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+        <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> <code class="docutils literal notranslate"><span class="pre">PRIMARY</span> <span class="pre">KEY</span></code> id of customer referenced on siteuser table</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>      First name of the customer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">surname</span></code>   Last name of the customer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">address</span></code>   Address of the customer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">total_orders</span></code>      Total orders of the customer which will be updated once he/she makes an order</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">year_born</span></code> The year the customer was born</p></li>
+</ul>
+</div>
+<div class="section" id="reading">
+<h3>2. Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h3>
+<p>For reading both customer and company information i implemented a single function. By giving the username as an argument you will choose which user you want to get the information of and with usertype you will be able to use two different select statements for two different tables.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">usertype</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                            WHERE (USERNAME = </span><span class="si">%(username)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;CUSTOMER&quot;</span><span class="p">:</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT NAME,SURNAME,ADDRESS,YEAR_BORN FROM CUSTOMER</span>
+<span class="s2">                        WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="k">elif</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;COMPANY&quot;</span><span class="p">:</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT NAME,AVGDAY,YEAR_FOUNDED,TOTAL_ORDERS,CITY FROM COMPANY</span>
+<span class="s2">                        WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,{</span><span class="s1">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">})</span>
+    <span class="n">customerinfo</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">customerinfo</span>
+</pre></div>
+</div>
+<p>You can see the specific sql statement below.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">NAME</span><span class="p">,</span><span class="n">SURNAME</span><span class="p">,</span><span class="n">ADDRESS</span><span class="p">,</span><span class="n">YEAR_BORN</span> <span class="k">FROM</span> <span class="n">CUSTOMER</span>
+                         <span class="k">WHERE</span> <span class="p">(</span><span class="n">ID</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="n">s</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="inserting">
+<h3>3. Inserting<a class="headerlink" href="#inserting" title="Permalink to this headline">¶</a></h3>
+<p>For inserting a new customer to the table i implemented the function below. It will take name, surname, address, yearborn as parameters and create the customer for given username.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_customer</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span><span class="n">surname</span><span class="p">,</span><span class="n">address</span><span class="p">,</span><span class="n">yearborn</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                    WHERE (USERNAME = (</span><span class="si">%(username)s</span><span class="s2">))</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO CUSTOMER (ID , NAME,SURNAME , ADDRESS, YEAR_BORN)</span>
+<span class="s2">                    VALUES ( </span><span class="si">%(user_id)s</span><span class="s2"> , </span><span class="si">%(name)s</span><span class="s2"> , </span><span class="si">%(surname)s</span><span class="s2"> , </span><span class="si">%(address)s</span><span class="s2"> ,</span><span class="si">%(yearborn)s</span><span class="s2"> )</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">name</span> <span class="p">,</span> <span class="s1">&#39;surname&#39;</span> <span class="p">:</span> <span class="n">surname</span> <span class="p">,</span> <span class="s1">&#39;address&#39;</span> <span class="p">:</span> <span class="n">address</span> <span class="p">,</span> <span class="s1">&#39;yearborn&#39;</span> <span class="p">:</span> <span class="n">yearborn</span> <span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating">
+<h3>4. Updating<a class="headerlink" href="#updating" title="Permalink to this headline">¶</a></h3>
+<p>In order to update an existing user information on system i implemented a single function for both customer and company data. You will choose your update type by giving the usertype.</p>
+<p>The arguments for this function:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>  Username of the user which will be updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">whichupdate</span></code>       Specifies which value will be updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">newvalue</span></code>  What value will the current value be updated to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usertype</span></code>  Specifies which update to be used</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">whichupdate</span><span class="p">,</span><span class="n">newvalue</span><span class="p">,</span><span class="n">usertype</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                            WHERE (USERNAME = </span><span class="si">%(username)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;CUSTOMER&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;NAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET NAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;SURNAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET SURNAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;ADDRESS&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET ADDRESS = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;bornin&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET YEAR_BORN = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM CUSTOMER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">);</span>
+<span class="s2">                            DELETE FROM SITEUSER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+    <span class="k">elif</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;COMPANY&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;NAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET NAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;avgday&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET AVGDAY = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;year_founded&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET YEAR_FOUNDED = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;city&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET CITY = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM COMPANY</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">);</span>
+<span class="s2">                            DELETE FROM SITEUSER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,{</span><span class="s1">&#39;newvalue&#39;</span> <span class="p">:</span> <span class="n">newvalue</span> <span class="p">,</span><span class="s1">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deleting">
+<h3>5. Deleting<a class="headerlink" href="#deleting" title="Permalink to this headline">¶</a></h3>
+<p>For deleting a customer from the system. The same function in update will be used and “whichupdate” argument “DELETE”. Then, the following sql statement will be ran.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">CUSTOMER</span>
+    <span class="k">WHERE</span> <span class="p">(</span><span class="n">ID</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="n">s</span><span class="p">);</span>
+    <span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">SITEUSER</span>
+    <span class="k">WHERE</span> <span class="p">(</span><span class="n">ID</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The arguments for this function:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>  Username of the user which will be updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">whichupdate</span></code>       Specifies which value will be updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">newvalue</span></code>  What value will the current value be updated to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usertype</span></code>  Specifies which update to be used</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">whichupdate</span><span class="p">,</span><span class="n">newvalue</span><span class="p">,</span><span class="n">usertype</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                            WHERE (USERNAME = </span><span class="si">%(username)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;CUSTOMER&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;NAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET NAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;SURNAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET SURNAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;ADDRESS&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET ADDRESS = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;bornin&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET YEAR_BORN = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM CUSTOMER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">);</span>
+<span class="s2">                            DELETE FROM SITEUSER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+    <span class="k">elif</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;COMPANY&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;NAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET NAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;avgday&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET AVGDAY = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;year_founded&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET YEAR_FOUNDED = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;city&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET CITY = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM COMPANY</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">);</span>
+<span class="s2">                            DELETE FROM SITEUSER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,{</span><span class="s1">&#39;newvalue&#39;</span> <span class="p">:</span> <span class="n">newvalue</span> <span class="p">,</span><span class="s1">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="company">
+<h2>Company<a class="headerlink" href="#company" title="Permalink to this headline">¶</a></h2>
+<p>This table will hold company information and it will have a reference to siteuser table on id.</p>
+<div class="section" id="id1">
+<h3>1. Creation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">COMPANY</span><span class="p">(</span>
+         <span class="n">ID</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+         <span class="n">NAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span>
+         <span class="n">AVGDAY</span> <span class="nb">INTEGER</span><span class="p">,</span>
+         <span class="n">YEAR_FOUNDED</span> <span class="nb">INTEGER</span><span class="p">,</span>
+         <span class="n">TOTAL_ORDERS</span> <span class="nb">INTEGER</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">,</span>
+         <span class="n">CITY</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span>
+         <span class="k">CONSTRAINT</span> <span class="n">CONSTRAINT1</span>
+            <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">ID</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">SITEUSER</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+            <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> <code class="docutils literal notranslate"><span class="pre">PRIMARY</span> <span class="pre">KEY</span></code> id of company referenced on siteuser table</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>      First name of the company</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">avgday</span></code>    Avarage day for a company to deliver an order</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">year_founded</span></code>      The year that the company was founded</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">total_orders</span></code>      Total orders of the compant which will be updated once a customer makes an order from this specific company</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">city</span></code>      The city that this company is stationed on.</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>2. Reading<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>For reading a companys information the same function used for customer will be used. Simply we will give “COMPANY” as the usertype.</p>
+<p>Function arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>  Username of the user which we will get the information of</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usertype</span></code>  Specifies which select will be used</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">usertype</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                            WHERE (USERNAME = </span><span class="si">%(username)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;CUSTOMER&quot;</span><span class="p">:</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT NAME,SURNAME,ADDRESS,YEAR_BORN FROM CUSTOMER</span>
+<span class="s2">                        WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="k">elif</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;COMPANY&quot;</span><span class="p">:</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT NAME,AVGDAY,YEAR_FOUNDED,TOTAL_ORDERS,CITY FROM COMPANY</span>
+<span class="s2">                        WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,{</span><span class="s1">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">})</span>
+    <span class="n">customerinfo</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">customerinfo</span>
+</pre></div>
+</div>
+<p>You can see the specific sql statement for this operation below.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">NAME</span><span class="p">,</span><span class="n">AVGDAY</span><span class="p">,</span><span class="n">YEAR_FOUNDED</span><span class="p">,</span><span class="n">TOTAL_ORDERS</span><span class="p">,</span><span class="n">CITY</span> <span class="k">FROM</span> <span class="n">COMPANY</span>
+                        <span class="k">WHERE</span> <span class="p">(</span><span class="n">ID</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>3. Inserting<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>For instering a new company to the system, I implemented a create_company function. This function will take following arguments and create a company for given username.</p>
+<p>Function arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>  Username of the user which we will create a company for</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>      The name of the new company</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">year_founded</span></code>      The year that this new company was founded</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">avgday</span></code>    Avarage day for this new company to deliver an order</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">city</span></code>      The city that this new company is stationed at</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_company</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">year_founded</span><span class="p">,</span><span class="n">avgday</span><span class="p">,</span><span class="n">city</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                    WHERE (USERNAME = (</span><span class="si">%(username)s</span><span class="s2">))</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO COMPANY (ID , NAME , YEAR_FOUNDED, AVGDAY, CITY)</span>
+<span class="s2">                    VALUES ( </span><span class="si">%(user_id)s</span><span class="s2"> , </span><span class="si">%(name)s</span><span class="s2"> , </span><span class="si">%(year_founded)s</span><span class="s2"> , </span><span class="si">%(avgday)s</span><span class="s2"> , </span><span class="si">%(city)s</span><span class="s2"> )</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">name</span> <span class="p">,</span> <span class="s1">&#39;year_founded&#39;</span> <span class="p">:</span> <span class="n">year_founded</span> <span class="p">,</span>  <span class="s1">&#39;avgday&#39;</span><span class="p">:</span><span class="n">avgday</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span> <span class="p">:</span> <span class="n">city</span> <span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+<p>You can see the specific sql statement for this operation below.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">COMPANY</span> <span class="p">(</span><span class="n">ID</span> <span class="p">,</span> <span class="n">NAME</span> <span class="p">,</span> <span class="n">YEAR_FOUNDED</span><span class="p">,</span> <span class="n">AVGDAY</span><span class="p">,</span> <span class="n">CITY</span><span class="p">)</span>
+             <span class="k">VALUES</span> <span class="p">(</span> <span class="o">%</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="n">s</span> <span class="p">,</span> <span class="o">%</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="n">s</span> <span class="p">,</span> <span class="o">%</span><span class="p">(</span><span class="n">year_founded</span><span class="p">)</span><span class="n">s</span> <span class="p">,</span> <span class="o">%</span><span class="p">(</span><span class="n">avgday</span><span class="p">)</span><span class="n">s</span> <span class="p">,</span> <span class="o">%</span><span class="p">(</span><span class="n">city</span><span class="p">)</span><span class="n">s</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>4. Updating<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>In order to update an existing user information on system i implemented a single function for both customer and company data. You will choose your update type by giving the usertype. For this specific update you will set usertype “COMPANY”.</p>
+<p>The arguments for this function:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>  Username of the user which will be updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">whichupdate</span></code>       Specifies which value will be updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">newvalue</span></code>  What value will the current value be updated to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usertype</span></code>  Specifies which update to be used</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">whichupdate</span><span class="p">,</span><span class="n">newvalue</span><span class="p">,</span><span class="n">usertype</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                            WHERE (USERNAME = </span><span class="si">%(username)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;CUSTOMER&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;NAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET NAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;SURNAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET SURNAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;ADDRESS&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET ADDRESS = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;bornin&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET YEAR_BORN = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM CUSTOMER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">);</span>
+<span class="s2">                            DELETE FROM SITEUSER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+    <span class="k">elif</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;COMPANY&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;NAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET NAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;avgday&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET AVGDAY = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;year_founded&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET YEAR_FOUNDED = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;city&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET CITY = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM COMPANY</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">);</span>
+<span class="s2">                            DELETE FROM SITEUSER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,{</span><span class="s1">&#39;newvalue&#39;</span> <span class="p">:</span> <span class="n">newvalue</span> <span class="p">,</span><span class="s1">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>5. Deleting<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>For deleting a customer from the system. The same function in update will be used and “whichupdate” argument “DELETE”. Then, the following sql statement will be ran.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">COMPANY</span>
+    <span class="k">WHERE</span> <span class="p">(</span><span class="n">ID</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="n">s</span><span class="p">);</span>
+    <span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">SITEUSER</span>
+    <span class="k">WHERE</span> <span class="p">(</span><span class="n">ID</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The arguments for this function:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>  Username of the user which will be updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">whichupdate</span></code>       Specifies which value will be updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">newvalue</span></code>  What value will the current value be updated to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usertype</span></code>  Specifies which update to be used</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">whichupdate</span><span class="p">,</span><span class="n">newvalue</span><span class="p">,</span><span class="n">usertype</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                            WHERE (USERNAME = </span><span class="si">%(username)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;CUSTOMER&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;NAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET NAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;SURNAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET SURNAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;ADDRESS&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET ADDRESS = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;bornin&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE CUSTOMER SET YEAR_BORN = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM CUSTOMER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">);</span>
+<span class="s2">                            DELETE FROM SITEUSER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+    <span class="k">elif</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;COMPANY&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;NAME&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET NAME = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;avgday&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET AVGDAY = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;year_founded&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET YEAR_FOUNDED = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;city&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE COMPANY SET CITY = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">whichupdate</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM COMPANY</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">);</span>
+<span class="s2">                            DELETE FROM SITEUSER</span>
+<span class="s2">                                WHERE (ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                            &quot;&quot;&quot;</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,{</span><span class="s1">&#39;newvalue&#39;</span> <span class="p">:</span> <span class="n">newvalue</span> <span class="p">,</span><span class="s1">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="myorder">
+<h2>Myorder<a class="headerlink" href="#myorder" title="Permalink to this headline">¶</a></h2>
+<p>This is the table for holding order information. The orders will be created by customers. Then, both customers and companies will see the orders in their allowed manner.</p>
+<div class="section" id="id6">
+<h3>1. Creation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">MYORDER</span><span class="p">(</span>
+    <span class="n">ORDER_ID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+    <span class="n">CUSTOMER_ID</span> <span class="nb">INTEGER</span><span class="p">,</span>
+    <span class="n">COMPANY_ID</span> <span class="nb">INTEGER</span><span class="p">,</span>
+    <span class="n">ORDER_DATE</span> <span class="nb">DATE</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_DATE</span><span class="p">,</span>
+    <span class="n">ITEM</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+    <span class="n">HOW_MANY</span> <span class="nb">INTEGER</span><span class="p">,</span>
+    <span class="k">CONSTRAINT</span> <span class="n">CONSTRAINT1</span>
+        <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">CUSTOMER_ID</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">SITEUSER</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+        <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span><span class="p">,</span>
+    <span class="k">CONSTRAINT</span> <span class="n">CONSTRAINT2</span>
+        <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">COMPANY_ID</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">SITEUSER</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+        <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">order_id</span></code> <code class="docutils literal notranslate"><span class="pre">PRIMARY</span> <span class="pre">KEY</span></code> id of the order</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">customer_id</span></code>       Id of the customer who made the order, it is referenced from Customer table</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">company_id</span></code>        Id of the company who received the order, it is referenced from Customer table</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">order_date</span></code>        Date the order was created</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item</span></code>      The item that was ordered</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">how_many</span></code>  How many of the given item was ordered</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>2. Reading<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>For getting order information following function was implemented. Since, we have different user dashboard and we want list the orders in  a different way, I added usertype as an argument to this function. If the user is a customer the orders he/she made will be listed and if the user is a company the orders which were made from that specific company will be listed.</p>
+<p>Function arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>  Username of the user whose related orders will be listed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usertype</span></code>  For specifiying the listing difference</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_orders</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">usertype</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                            WHERE (USERNAME = </span><span class="si">%(username)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;CUSTOMER&quot;</span><span class="p">:</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT MYORDER.ORDER_ID, MYORDER.ORDER_DATE ,COMPANY.NAME, COMPANY.AVGDAY ,MYORDER.ITEM,MYORDER.HOW_MANY FROM COMPANY,MYORDER</span>
+<span class="s2">                        WHERE (COMPANY.ID = MYORDER.COMPANY_ID) AND (MYORDER.CUSTOMER_ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="k">elif</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s2">&quot;COMPANY&quot;</span><span class="p">:</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
+<span class="s2">                        MYORDER.ORDER_ID, MYORDER.ORDER_DATE ,MYORDER.ITEM, COMPANY.AVGDAY, CUSTOMER.ADDRESS , MYORDER.HOW_MANY</span>
+<span class="s2">                        FROM</span>
+<span class="s2">                        COMPANY INNER JOIN MYORDER</span>
+<span class="s2">                        ON (COMPANY.ID = MYORDER.COMPANY_ID) AND (MYORDER.COMPANY_ID = </span><span class="si">%(user_id)s</span><span class="s2">)</span>
+<span class="s2">                        INNER JOIN CUSTOMER</span>
+<span class="s2">                        ON (CUSTOMER.ID = MYORDER.CUSTOMER_ID)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span> <span class="p">,{</span><span class="s1">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">}</span> <span class="p">)</span>
+    <span class="n">orders</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">orders</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>3. Inserting<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>When a customer creates an order this function below will be called. Then with the proper parameters an order will be created linked to the that user.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_order</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">company_id</span><span class="p">,</span><span class="n">item</span><span class="p">,</span><span class="n">howmany</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM SITEUSER</span>
+<span class="s2">                            WHERE (USERNAME = </span><span class="si">%(username)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO MYORDER (CUSTOMER_ID , COMPANY_ID , ITEM ,HOW_MANY)</span>
+<span class="s2">                    VALUES ( </span><span class="si">%(customer_id)s</span><span class="s2"> , </span><span class="si">%(company_id)s</span><span class="s2"> , </span><span class="si">%(item)s</span><span class="s2"> ,</span><span class="si">%(howmany)s</span><span class="s2">);</span>
+<span class="s2">                    UPDATE CUSTOMER SET TOTAL_ORDERS = TOTAL_ORDERS + 1</span>
+<span class="s2">                    WHERE ID = </span><span class="si">%(customer_id)s</span><span class="s2">;</span>
+<span class="s2">                    UPDATE COMPANY SET TOTAL_ORDERS = TOTAL_ORDERS + 1</span>
+<span class="s2">                    WHERE ID = </span><span class="si">%(company_id)s</span><span class="s2"></span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;customer_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">,</span> <span class="s1">&#39;company_id&#39;</span> <span class="p">:</span> <span class="n">company_id</span> <span class="p">,</span> <span class="s1">&#39;item&#39;</span> <span class="p">:</span> <span class="n">item</span><span class="p">,</span> <span class="s1">&#39;howmany&#39;</span> <span class="p">:</span> <span class="n">howmany</span>  <span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>4. Updating<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>In our system a customers can update the item that they ordered. By doing they will cause the calling of this following function. Then the value of the item will be updated with the new value.</p>
+<p>Function arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id_todelete</span></code>  Id of the order that will be updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">newvalue</span></code>  What value the attribute will be updated to</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_order</span><span class="p">(</span><span class="n">id_todelete</span><span class="p">,</span><span class="n">newvalue</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE MYORDER SET ITEM = </span><span class="si">%(newvalue)s</span><span class="s2"></span>
+<span class="s2">                    WHERE ( ORDER_ID = (</span><span class="si">%(id_todelete)s</span><span class="s2">) )</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;id_todelete&#39;</span> <span class="p">:</span> <span class="n">id_todelete</span> <span class="p">,</span> <span class="s1">&#39;newvalue&#39;</span> <span class="p">:</span> <span class="n">newvalue</span><span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>5. Deleting<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>In order to delete a order, i implemented this function below. The id which is given as parameter of an order will be deleted.</p>
+<p>Function arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id_todelete</span></code>  Id of the order that will be deleted</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">delete_order</span><span class="p">(</span><span class="n">id_todelete</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM MYORDER</span>
+<span class="s2">                    WHERE ( ORDER_ID = (</span><span class="si">%(id_todelete)s</span><span class="s2">) )</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;id_todelete&#39;</span> <span class="p">:</span> <span class="n">id_todelete</span><span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="extra-table-siteuser">
+<h2>Extra Table Siteuser<a class="headerlink" href="#extra-table-siteuser" title="Permalink to this headline">¶</a></h2>
+<p>This is the table for holding user information like username, password and account type.</p>
+<div class="section" id="id11">
+<h3>1. Creation<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">SITEUSER</span><span class="p">(</span>
+          <span class="n">ID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+          <span class="n">USERNAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span>
+          <span class="n">PASSWORD</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+          <span class="n">USERTYPE</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> <code class="docutils literal notranslate"><span class="pre">PRIMARY</span> <span class="pre">KEY</span></code> Id of the user</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>  Username of the user</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code>  Password of the user</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usertype</span></code>  Account type of the user</p></li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>2. Reading<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>This function will be called to get the id of the user with username.</p>
+<p>Function arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>  Username of the user whose user_id will be returned.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT PASSWORD , USERTYPE FROM SITEUSER</span>
+<span class="s2">                            WHERE (USERNAME = </span><span class="si">%(username)s</span><span class="s2">)</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">user</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>3. Inserting<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>This function will be used to create a user after signup.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">,</span><span class="n">account_type</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO SITEUSER (USERNAME , PASSWORD , USERTYPE)</span>
+<span class="s2">                    VALUES ( </span><span class="si">%s</span><span class="s2"> , </span><span class="si">%s</span><span class="s2"> , </span><span class="si">%s</span><span class="s2"> )</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">,</span><span class="n">account_type</span><span class="p">))</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>4. Deleting<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>In order to delete a user, i implemented this function below. The id which is given as parameter of a user will be deleted.</p>
+<p>Function arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id_todelete</span></code>  Id of the order that will be deleted</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span><span class="n">id_todelete</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM SITEUSER</span>
+<span class="s2">                    WHERE ( ID = (</span><span class="si">%(id_todelete)s</span><span class="s2">) )</span>
+<span class="s2">                        &quot;&quot;&quot;</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;id_todelete&#39;</span> <span class="p">:</span> <span class="n">id_todelete</span><span class="p">})</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Developer Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, ITUCSDB1946
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

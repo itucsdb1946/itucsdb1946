@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developer Guide &mdash; ITUCSDB1946  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tables" href="member1.html" />
+    <link rel="prev" title="User Guide" href="../user/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ITUCSDB1946
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#database-design">Database Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code">Code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#views">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#home-page">1. home_page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#signup-page">2. signup_page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dashboard">3. dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#company-dashboard">4. company_dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#login-page">5. login_page</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#templates">Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#my-sql-statements">My SQL Statements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="member1.html">Tables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ITUCSDB1946</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Developer Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/developer/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developer-guide">
+<h1>Developer Guide<a class="headerlink" href="#developer-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="database-design">
+<h2>Database Design<a class="headerlink" href="#database-design" title="Permalink to this headline">¶</a></h2>
+<p><strong>For this project I decided to implement a delivery management system. So, I needed three tables. Customer table for holding the customer data, Company table for holding company and Myorder table for holding order data.</strong></p>
+<div class="figure align-default" id="id1">
+<img alt="../_images/tables.png" src="../_images/tables.png" />
+<p class="caption"><span class="caption-text">Table Diagram</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<p>This part will contain information about the code structure of this project.</p>
+<div class="section" id="views">
+<h3>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h3>
+<p>Views render what the user actually sees and also it gets input out of user. The main views functions will be discussed below.</p>
+<div class="section" id="home-page">
+<h4>1. home_page<a class="headerlink" href="#home-page" title="Permalink to this headline">¶</a></h4>
+<p>This routes you to the login page.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">home_page</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;login_page&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="signup-page">
+<h4>2. signup_page<a class="headerlink" href="#signup-page" title="Permalink to this headline">¶</a></h4>
+<p>This get the proper information from frontend and creates a user. Then if the user is a customer it creates a customer, else if the user is a company it creates a company.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">signup_page</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;movie_edit.html&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">form_username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
+        <span class="n">form_account_type</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;account_type&quot;</span><span class="p">]</span>
+        <span class="n">form_password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">]</span>
+        <span class="n">create_user</span><span class="p">(</span><span class="n">form_username</span><span class="p">,</span><span class="n">form_password</span><span class="p">,</span><span class="n">form_account_type</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;account_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Customer&quot;</span><span class="p">):</span>
+            <span class="n">form_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Customer name&quot;</span><span class="p">]</span>
+            <span class="n">form_surname</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Customer surname&quot;</span><span class="p">]</span>
+            <span class="n">form_address</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Customer address&quot;</span><span class="p">]</span>
+            <span class="n">form_birth</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Customer born&quot;</span><span class="p">]</span>
+            <span class="n">create_customer</span><span class="p">(</span><span class="n">form_username</span><span class="p">,</span><span class="n">form_name</span><span class="p">,</span><span class="n">form_surname</span><span class="p">,</span><span class="n">form_address</span><span class="p">,</span><span class="n">form_birth</span><span class="p">)</span>
+            <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;list_customers_page&quot;</span><span class="p">))</span>
+        <span class="k">elif</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;account_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Company&quot;</span><span class="p">):</span>
+            <span class="n">form_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Company name&quot;</span><span class="p">]</span>
+            <span class="n">form_founded</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Founded year&quot;</span><span class="p">]</span>
+            <span class="n">form_avgday</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Avarage Day&quot;</span><span class="p">]</span>
+            <span class="n">form_city</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;City&quot;</span><span class="p">]</span>
+            <span class="n">create_company</span><span class="p">(</span><span class="n">form_username</span><span class="p">,</span> <span class="n">form_name</span><span class="p">,</span> <span class="n">form_founded</span><span class="p">,</span><span class="n">form_avgday</span><span class="p">,</span><span class="n">form_city</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;login_page&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dashboard">
+<h4>3. dashboard<a class="headerlink" href="#dashboard" title="Permalink to this headline">¶</a></h4>
+<p>This is the function that will view the customer dashboard. It will handle all order and profile operations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">dashboard</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>
+        <span class="n">companies</span> <span class="o">=</span> <span class="n">get_companies</span><span class="p">()</span>
+        <span class="n">orders</span> <span class="o">=</span> <span class="n">get_orders</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span><span class="s2">&quot;CUSTOMER&quot;</span><span class="p">)</span>
+        <span class="n">customerinfo</span> <span class="o">=</span> <span class="n">get_info</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span><span class="s2">&quot;CUSTOMER&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;dashboard.html&quot;</span><span class="p">,</span> <span class="n">companies</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">companies</span><span class="p">)</span> <span class="p">,</span> <span class="n">orders</span><span class="o">=</span> <span class="n">orders</span><span class="p">,</span> <span class="n">customerinfo</span><span class="o">=</span><span class="n">customerinfo</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;CreateOrder&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">:</span>
+            <span class="n">currentuser</span> <span class="o">=</span> <span class="n">current_user</span>
+            <span class="n">company_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;which_company&quot;</span><span class="p">]</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;item&quot;</span><span class="p">]</span>
+            <span class="n">howmany</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Howmany&quot;</span><span class="p">]</span>
+            <span class="n">create_order</span><span class="p">(</span><span class="n">currentuser</span><span class="o">.</span><span class="n">username</span><span class="p">,</span><span class="n">company_id</span><span class="p">,</span><span class="n">item</span><span class="p">,</span><span class="n">howmany</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;dashboard&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="s1">&#39;DeleteOrder&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">:</span>
+            <span class="n">orders</span> <span class="o">=</span> <span class="n">get_orders</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span><span class="s2">&quot;CUSTOMER&quot;</span><span class="p">)</span>
+            <span class="n">orders_todelete</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">order_id</span> <span class="ow">in</span> <span class="n">orders_todelete</span><span class="p">:</span>
+                <span class="n">delete_order</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;dashboard&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="s1">&#39;UpdateOrder&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">:</span>
+            <span class="n">orders</span> <span class="o">=</span> <span class="n">get_orders</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span><span class="s2">&quot;CUSTOMER&quot;</span><span class="p">)</span>
+            <span class="n">order_toupdate</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">)</span>
+            <span class="n">newvalue</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Updateitem&quot;</span><span class="p">]</span>
+            <span class="n">update_order</span><span class="p">(</span><span class="n">order_toupdate</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">newvalue</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;dashboard&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="s1">&#39;Logout&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">:</span>
+            <span class="n">logout_user</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;login_page&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="s1">&#39;Updateprofile&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">:</span>
+            <span class="n">newvalue</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Updatevalue&quot;</span><span class="p">]</span>
+            <span class="n">whichupdate</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Whichupdate&quot;</span><span class="p">]</span>
+            <span class="n">update</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span><span class="n">whichupdate</span><span class="p">,</span><span class="n">newvalue</span><span class="p">,</span><span class="s2">&quot;CUSTOMER&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;dashboard&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="company-dashboard">
+<h4>4. company_dashboard<a class="headerlink" href="#company-dashboard" title="Permalink to this headline">¶</a></h4>
+<p>This is the function that will view the customer dashboard. It will handle all order and profile operations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">company_dashboard</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>
+        <span class="n">companies</span> <span class="o">=</span> <span class="n">get_companies</span><span class="p">()</span>
+        <span class="n">orders</span> <span class="o">=</span> <span class="n">get_orders</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span><span class="s2">&quot;COMPANY&quot;</span><span class="p">)</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">get_info</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">username</span> <span class="p">,</span><span class="s2">&quot;COMPANY&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;companydashboard.html&quot;</span><span class="p">,</span> <span class="n">companies</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">companies</span><span class="p">)</span> <span class="p">,</span> <span class="n">orders</span><span class="o">=</span> <span class="n">orders</span><span class="p">,</span> <span class="n">customerinfo</span><span class="o">=</span><span class="n">info</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;DeleteOrder&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">:</span>
+            <span class="n">orders_todelete</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">order_id</span> <span class="ow">in</span> <span class="n">orders_todelete</span><span class="p">:</span>
+                <span class="n">delete_order</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;company_dashboard&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="s1">&#39;Logout&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">:</span>
+            <span class="n">logout_user</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;login_page&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="s1">&#39;Updateprofile&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">:</span>
+            <span class="n">newvalue</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Updatevalue&quot;</span><span class="p">]</span>
+            <span class="n">whichupdate</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;Whichupdate&quot;</span><span class="p">]</span>
+            <span class="n">update</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span><span class="n">whichupdate</span><span class="p">,</span><span class="n">newvalue</span> <span class="p">,</span><span class="s2">&quot;COMPANY&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;company_dashboard&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="login-page">
+<h4>5. login_page<a class="headerlink" href="#login-page" title="Permalink to this headline">¶</a></h4>
+<p>This is the function that will view the login page. It will get your username and password. Then it checks wheter your password is correct or not.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">login_page</span><span class="p">():</span>
+    <span class="n">logout_user</span><span class="p">()</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">LoginForm</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">get_user</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">temp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">realpassword</span><span class="p">,</span> <span class="n">usertype</span> <span class="o">=</span> <span class="n">temp</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">realpassword</span><span class="p">,</span> <span class="n">usertype</span><span class="p">)</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">password</span> <span class="o">==</span> <span class="n">realpassword</span><span class="p">:</span> <span class="c1">##burayı sonra hashli yaparsın</span>
+                <span class="n">login_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+                <span class="n">flash</span><span class="p">(</span><span class="s2">&quot;You have logged in.&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s1">&#39;Customer&#39;</span><span class="p">:</span>
+                    <span class="n">next_page</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;next&quot;</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;dashboard&quot;</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">usertype</span> <span class="o">==</span> <span class="s1">&#39;Company&#39;</span><span class="p">:</span>
+                    <span class="n">next_page</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;next&quot;</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;company_dashboard&quot;</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">next_page</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;No such user&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;login.html&quot;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="templates">
+<h3>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h3>
+<p>Templates contained a Html template that i manipulated to serve this project.</p>
+<p>They are located at the folder <code class="docutils literal notranslate"><span class="pre">templates/</span></code> and are to be used by views.</p>
+</div>
+<div class="section" id="my-sql-statements">
+<h3>My SQL Statements<a class="headerlink" href="#my-sql-statements" title="Permalink to this headline">¶</a></h3>
+<p>The queries used for this project are gathered into a single python file.</p>
+<p>And, they are located at the file <code class="docutils literal notranslate"><span class="pre">mysqlstatements.py</span></code></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="member1.html">Tables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="member1.html#customer">Customer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#creation">1. Creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#reading">2. Reading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#inserting">3. Inserting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#updating">4. Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#deleting">5. Deleting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="member1.html#company">Company</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id1">1. Creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id2">2. Reading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id3">3. Inserting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id4">4. Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id5">5. Deleting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="member1.html#myorder">Myorder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id6">1. Creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id7">2. Reading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id8">3. Inserting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id9">4. Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id10">5. Deleting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="member1.html#extra-table-siteuser">Extra Table Siteuser</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id11">1. Creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id12">2. Reading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id13">3. Inserting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member1.html#id14">4. Deleting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="member1.html" class="btn btn-neutral float-right" title="Tables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../user/index.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, ITUCSDB1946
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
