@@ -687,9 +687,9 @@ Function arguments:
         connection.close()
         return
 
-********************
+*********************
 Extra Table Siteuser
-****************
+*********************
 
 This is the table for holding user information like username, password and account type.
 
