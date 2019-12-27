@@ -9,10 +9,10 @@ This routes you to the login page.
 .. code-block:: python
 
 	def home_page():
-    		return redirect(url_for("login_page"))
+	    return redirect(url_for("login_page"))
 
 **************
-1. signup_page
+2. signup_page
 **************
 
 This get the proper information from frontend and creates a user. Then if the user is a customer it creates a customer, else if the user is a company it creates a company.
