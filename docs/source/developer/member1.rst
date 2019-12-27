@@ -688,12 +688,7 @@ Function arguments:
         return
 
 ********************
-Extra Tables
-********************
-
-	
-****************
-Siteuser
+Extra Table Siteuser
 ****************
 
 This is the table for holding user information like username, password and account type.
